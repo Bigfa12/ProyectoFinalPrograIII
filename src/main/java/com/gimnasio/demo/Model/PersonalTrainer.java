@@ -1,24 +1,32 @@
 package com.gimnasio.demo.Model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.List;
+@Entity
+public class PersonalTrainer {
 
-public class PersonalTrainer extends Empleado {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_personal_trainer;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id_trainer;
     private String especialidad;
-    private List<Cliente> clientesAsignados;
 
-    public long getId_personal_trainer() {
-        return id_personal_trainer;
+    @OneToMany
+    @JoinColumn(name = "id_trainer",referencedColumnName = "id_trainer")
+    private List<Cliente> clientes;
+
+    @OneToOne
+    @JoinColumn(name = "id_empleado",referencedColumnName = "id_empleado")
+    private Empleado empleado;
+
+    public int getId_trainer() {
+        return id_trainer;
     }
 
-    public void setId_personal_trainer(long id_personal_trainer) {
-        this.id_personal_trainer = id_personal_trainer;
+    List<Record> records;
+
+    public void setId_trainer(int id_trainer) {
+        this.id_trainer = id_trainer;
     }
 
     public String getEspecialidad() {
@@ -29,11 +37,13 @@ public class PersonalTrainer extends Empleado {
         this.especialidad = especialidad;
     }
 
-    public List<Cliente> getClientesAsignados() {
-        return clientesAsignados;
+    @OneToMany(mappedBy = "personalTrainer")
+    public List<Cliente> getClientes() {
+        return clientes;
     }
 
-    public void setClientesAsignados(List<Cliente> clientesAsignados) {
-        this.clientesAsignados = clientesAsignados;
+    public void setClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
     }
+
 }

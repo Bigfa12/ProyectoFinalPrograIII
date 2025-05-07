@@ -1,24 +1,19 @@
 package com.gimnasio.demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
-public class Recepcionista extends Empleado{
+public class Recepcionista{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_recepcionista;
+    private int id_recepcionista;
+
+    @OneToOne
+    @JoinColumn(name = "id_empleado",referencedColumnName = "id_empleado")
+    private Empleado empleado;
+
     private boolean manejaCaja;
-
-    public long getId_recepcionista() {
-        return id_recepcionista;
-    }
-
-    public void setId_recepcionista(long id_recepcionista) {
-        this.id_recepcionista = id_recepcionista;
-    }
 
     public boolean isManejaCaja() {
         return manejaCaja;
