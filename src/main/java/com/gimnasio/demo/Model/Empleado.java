@@ -1,19 +1,33 @@
 package com.gimnasio.demo.Model;
 
 import jakarta.persistence.*;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Empleado extends Usuario{
+public class Empleado{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_empleado;
+
     private double salario;
+
     private Time horaEntrada;
     private Time horaSalida;
+
+    private Date fechaContratacion;
+
+
+
+    @OneToOne
+    @JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
+    private Usuario usuario;
+
 
     public long getId_empleado() {
         return id_empleado;
