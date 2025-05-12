@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="registrarse.css">
+    <link rel="stylesheet" href="regLog.css">
+    <script src="/script.js"></script>
 </head>
 <body>
     <header>
@@ -13,20 +14,24 @@
             <ul>
                 <li><a href="" class="listRegistrarse">Registrarse</a></li>
                 <li><div class="linea"></div></li>
-                <li><a href="" class="listIniciarSesion">Iniciar sesion</a></li>
+                <li><a href="/src/main/resources/Static/iniciarSesion.html" class="listIniciarSesion">Iniciar sesion</a></li>
             </ul>   
         </nav>
     </header>
     <div class="form-container">
-        <form action="">
+        <form id="formulario-registro">
             <h2>REGISTRARSE</h2>
             <label for="nombre">Nombre</label>
-            <input type="text" placeholder="Nombre">
+            <input type="text" placeholder="Nombre" id="input-nombre">
             <label for="apellido">Apellido</label>
-            <input type="text" placeholder="Apellido">
+            <input type="text" placeholder="Apellido" id="input-apellido">
+            <label for="DNI">DNI</label>
+            <input type="number" placeholder="DNI" id="input-dni">
             <label for="email">Email</label>
-            <input type="email" placeholder="Email">
-            <button>Confirmar</button>
+            <input type="email" placeholder="Email" id="input-email">
+            <label for="password">Contraseña</label>
+            <input type="password" placeholder="Contraseña" id="input-contrasenia">
+            <button id="btn-confirmar-registro" type="submit">Confirmar</button>
         </form>
     </div>
 </body>
