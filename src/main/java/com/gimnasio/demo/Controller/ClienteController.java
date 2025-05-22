@@ -6,22 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/clients")
 public class ClienteController {
 
     @Autowired
     ClienteRepositorio clienteRepositorio;
 
-    @GetMapping("/clients")
+    @GetMapping
     public void listClientes() {
         clienteRepositorio.findAll();
     }
 
-    @DeleteMapping("/clients")
+    @DeleteMapping
     public void deleteCliente(long id){
         clienteRepositorio.deleteById(id);
     }
 
-    @PatchMapping("/clients/{id}")
+    @PatchMapping("/{id}")
     public void editCliente(@PathVariable long id,@RequestBody Cliente cliente) {
         if(clienteRepositorio.existsById(id)){
             clienteRepositorio.save(cliente);
