@@ -1,8 +1,14 @@
 package com.gimnasio.demo.Model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Cliente{
 
     @Id
@@ -15,39 +21,9 @@ public class Cliente{
     @JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
     private Usuario usuario;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_trainer",referencedColumnName = "id_trainer")
     private PersonalTrainer trainer;
 
-    public long getId_cliente() {
-        return id_cliente;
-    }
 
-    public void setId_cliente(long id_cliente) {
-        this.id_cliente = id_cliente;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public boolean isAlDia() {
-        return alDia;
-    }
-
-    public void setAlDia(boolean alDia) {
-        this.alDia = alDia;
-    }
-
-    public PersonalTrainer getTrainer() {
-        return trainer;
-    }
-
-    public void setTrainer(PersonalTrainer trainer) {
-        this.trainer = trainer;
-    }
 }

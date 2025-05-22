@@ -1,8 +1,14 @@
 package com.gimnasio.demo.Model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class UsuarioRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,35 +22,5 @@ public class UsuarioRecord {
 
     private int peso;
 
-    public long getId_usuario_record() {
-        return id_usuario_record;
-    }
 
-    public void setId_usuario_record(long id_usuario_record) {
-        this.id_usuario_record = id_usuario_record;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Record getRecord() {
-        return record;
-    }
-
-    public void setRecord(Record record) {
-        this.record = record;
-    }
-
-    public int getPeso() {
-        return peso;
-    }
-
-    public void setPeso(int peso) {
-        this.peso = peso;
-    }
 }

@@ -1,10 +1,16 @@
 package com.gimnasio.demo.Model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,27 +19,5 @@ public class Record {
     @OneToMany
     private List<UsuarioRecord> records;
 
-    public long getId_record() {
-        return id_record;
-    }
 
-    public void setId_record(long id_record) {
-        this.id_record = id_record;
-    }
-
-    public String getNombreEjercicio() {
-        return nombreEjercicio;
-    }
-
-    public void setNombreEjercicio(String nombreEjercicio) {
-        this.nombreEjercicio = nombreEjercicio;
-    }
-
-    public List<UsuarioRecord> getRecords() {
-        return records;
-    }
-
-    public void setRecords(List<UsuarioRecord> records) {
-        this.records = records;
-    }
 }
