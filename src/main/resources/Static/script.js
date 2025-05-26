@@ -8,15 +8,18 @@ formulario.addEventListener("submit", function(e)
     const dni=document.getElementById("input-dni");
     const email=document.getElementById("input-email");
     const password=document.getElementById("input-contrasenia");
+    const repPassword=document.getElementById("input-repContrasenia");
 
     const datos={
         nombreUsuario:nombre.value,
         dni:dni.value,
         email:email.value,
-        contrasena:password.value
+        contrasena:password.value,
     };
 
-    fetch('http://localhost:8080/register',
+    if(password.value==repPassword.value)
+    {
+        fetch('http://localhost:8080/register',
         {
             method:'POST', //El tipo de solicitud
             headers:
@@ -25,4 +28,9 @@ formulario.addEventListener("submit", function(e)
             },
             body: JSON.stringify(datos) //para convertir el objeto datos en json
         })
+    }else{
+        alert("Error, las contraseñas no son iguales");
+    }
+    
+   
 })
