@@ -4,7 +4,6 @@ import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Repository.ClienteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +27,5 @@ public class ClienteServicio {
     public List<Cliente> listarClientes(){
         return clienteRepositorio.findAll();
     }
-
 
 }
