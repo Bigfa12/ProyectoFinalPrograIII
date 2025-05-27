@@ -3,11 +3,9 @@ package com.gimnasio.demo.Controller;
 import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Repository.ClienteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@PreAuthorize("hasRole('ADMIN')")
 public class ClienteController {
 
     @Autowired
