@@ -21,4 +21,11 @@ public class EjercicioRutina {
     private int series;
     private int repeticiones;
     private float tiempoDeDescanso;
+
+    public EjercicioRutina(String actividad, int series, int repeticiones, float tiempoDeDescanso) {
+        this.actividad = actividad;
+        this.series = series;
+        this.repeticiones = repeticiones;
+        this.tiempoDeDescanso = tiempoDeDescanso;
+    }
 }
