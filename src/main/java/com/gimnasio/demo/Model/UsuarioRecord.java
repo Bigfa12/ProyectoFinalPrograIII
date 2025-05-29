@@ -4,11 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
-@Builder
+
 public class UsuarioRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

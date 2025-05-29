@@ -4,11 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
-@Builder
 public class Cliente{
 
     @Id
@@ -21,9 +18,9 @@ public class Cliente{
     @JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
     private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "id_trainer",referencedColumnName = "id_trainer")
-    private PersonalTrainer trainer;
+    @OneToOne
+    @JoinColumn(name = "nroTarjeta", referencedColumnName = "id_usuario")
+    private MetodoDePago metodoDePago;
 
 
 }

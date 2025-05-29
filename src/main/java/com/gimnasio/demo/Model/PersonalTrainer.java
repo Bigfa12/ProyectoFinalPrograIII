@@ -5,11 +5,9 @@ import lombok.*;
 
 import java.util.List;
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
-@Builder
+
 public class PersonalTrainer {
 
     @Id

@@ -6,11 +6,9 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
-@Builder
+
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
