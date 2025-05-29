@@ -1,9 +1,6 @@
 package com.gimnasio.demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +13,7 @@ import java.util.Date;
 @Entity
 public class MetodoDePago {
     @Id
+    private Long id;
     private long nroTrajeta;
     private String nombreTitular;
     private Date fechaVencimiento;
