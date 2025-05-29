@@ -5,6 +5,7 @@ import lombok.*;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public  class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

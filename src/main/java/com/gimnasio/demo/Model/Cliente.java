@@ -3,9 +3,12 @@ package com.gimnasio.demo.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Cliente{
 
     @Id
@@ -19,8 +22,11 @@ public class Cliente{
     private Usuario usuario;
 
     @OneToOne
-    @JoinColumn(name = "nroTarjeta", referencedColumnName = "id_usuario")
+    @JoinColumn(name = "nroTarjeta", referencedColumnName = "nroTarjeta")
     private MetodoDePago metodoDePago;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Record>records;
 
 
 }
