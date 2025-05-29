@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Model;
 
+import com.gimnasio.demo.Enums.Ejercicio;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,5 +18,10 @@ public class Record {
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
+
+    private float peso;
+
+    @Enumerated(EnumType.STRING)
+    private Ejercicio ejercicio;
 
 }
