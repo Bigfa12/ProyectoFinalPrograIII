@@ -1,0 +1,70 @@
+body
+{
+    color: rgb(255, 216, 0);
+}
+
+.form-container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    margin-top: 50px;
+}
+
+form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 400px;
+    background-color: rgb(19, 19, 19);
+    padding: 40px;
+    border-radius: 7px;
+}
+
+h2
+{
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+label
+{
+    font-size: small;
+    font-weight: bold;
+    margin-top: 15px;
+    align-self: flex-start;/*Esto alinea el label a la izquierda del form*/
+    color: rgb(156, 156, 156);
+}
+
+input
+{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 5px;
+    border-radius: 5px;
+    border:none;
+    outline: none;
+    width: 100%;
+}
+
+button
+{
+    background-color: rgb(255, 216, 0);
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover
+{
+    background-color: gold;
+    box-shadow: gold;
+    transform: scale(1.05);
+}

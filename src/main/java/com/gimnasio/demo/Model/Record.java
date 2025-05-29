@@ -6,18 +6,16 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_record;
-    private String nombreEjercicio;
-    @OneToMany
-    private List<UsuarioRecord> records;
 
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
 
 }
