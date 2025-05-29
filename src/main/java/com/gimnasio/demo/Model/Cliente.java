@@ -21,10 +21,6 @@ public class Cliente{
     @JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
     private Usuario usuario;
 
-    @OneToOne
-    @JoinColumn(name = "nroTarjeta", referencedColumnName = "nroTarjeta")
-    private MetodoDePago metodoDePago;
-
     @OneToMany(mappedBy = "cliente")
     private List<Record>records;
 

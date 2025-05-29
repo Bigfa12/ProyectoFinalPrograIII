@@ -1,8 +1,6 @@
 package com.gimnasio.demo.Controller;
 
-import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Model.Usuario;
-import com.gimnasio.demo.Repository.UsuarioRepositorio;
 import com.gimnasio.demo.Service.UsuarioServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +19,10 @@ public class UsuarioController {
 
   @PostMapping("/register")
   public void addCliente(@RequestBody Usuario usuario) {
-      System.out.println(usuario.toString());
-
       usuarioServicio.crearUsuario(usuario);
   }
+
+
 
   // @GetMapping("/list")
   

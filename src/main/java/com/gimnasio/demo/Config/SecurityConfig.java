@@ -15,13 +15,10 @@ import javax.sql.DataSource;
 @EnableMethodSecurity
 
 public class SecurityConfig {
-
-
     @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }
-
 
     // Seleccion de encriptador
     @Bean
