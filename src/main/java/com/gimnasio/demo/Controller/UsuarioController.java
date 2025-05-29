@@ -17,18 +17,17 @@ import java.util.List;
 public class UsuarioController {
     @Autowired
     private UsuarioServicio usuarioServicio;
-  //  @PostMapping("/insert")  ///funciones con spring security
+    //@PostMapping("/insert")  ///funciones con spring security
 
-  @PostMapping("/register")
-  public void addCliente(@RequestBody Usuario usuario) {
-      System.out.println(usuario.toString());
+    @PostMapping("/register")
+    public void addCliente(@RequestBody Usuario usuario) {
+        System.out.println(usuario.toString());
 
-      usuarioServicio.crearUsuario(usuario);
-  }
+        usuarioServicio.crearUsuario(usuario);
+    }
 
-  // @GetMapping("/list")
-  
-    // @postmapping("/login")
-    //@getmapping("/profile")
+    //@GetMapping("/list")
+    //@Postmapping("/login")
+    //@Getmapping("/profile")
 
 }

@@ -20,6 +20,11 @@ public class Rutina {
     @Enumerated(EnumType.STRING)
     private Dia dia;
 
-    @OneToMany(mappedBy = "id_ejercicio")
+    @OneToMany(mappedBy = "id_ejercicio", cascade = CascadeType.ALL)
     private List<EjercicioRutina> ejercicios;
+
+    public Rutina(Dia dia, List<EjercicioRutina> ejercicios) {
+        this.dia = dia;
+        this.ejercicios = ejercicios;
+    }
 }
