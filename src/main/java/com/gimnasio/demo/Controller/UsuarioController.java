@@ -1,8 +1,6 @@
 package com.gimnasio.demo.Controller;
 
-import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Model.Usuario;
-import com.gimnasio.demo.Repository.UsuarioRepositorio;
 import com.gimnasio.demo.Service.UsuarioServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,19 @@ public class UsuarioController {
     private UsuarioServicio usuarioServicio;
     //@PostMapping("/insert")  ///funciones con spring security
 
+<<<<<<< HEAD
+  @PostMapping("/register")
+  public void addCliente(@RequestBody Usuario usuario) {
+      usuarioServicio.crearUsuario(usuario);
+  }
+
+
+
+  // @GetMapping("/list")
+  
+    // @postmapping("/login")
+    //@getmapping("/profile")
+=======
     @PostMapping("/register")
     public void addCliente(@RequestBody Usuario usuario) {
         System.out.println(usuario.toString());
@@ -29,5 +40,6 @@ public class UsuarioController {
     //@GetMapping("/list")
     //@Postmapping("/login")
     //@Getmapping("/profile")
+>>>>>>> 52cd14143635ce3955451e954597296f5b56d6da
 
 }

@@ -11,10 +11,13 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-public class MetodoDePago {
+public class Tarjeta {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private long nroTrajeta;
     private String nombreTitular;
     private Date fechaVencimiento;
     private int cvv;
+
 }

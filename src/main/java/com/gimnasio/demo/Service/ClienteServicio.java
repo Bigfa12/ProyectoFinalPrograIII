@@ -10,13 +10,13 @@ import java.util.Optional;
 @Service
 public class ClienteServicio {
     @Autowired
-    ClienteRepositorio clienteRepositorio;
+    private ClienteRepositorio clienteRepositorio;
 
     public Optional<Cliente> buscarClientePorID(Long id){
         return clienteRepositorio.findById(id);
     }
 
-    public void crearCliente (Cliente cliente){
+    public void crearCliente(Cliente cliente){
         clienteRepositorio.save(cliente);
     }
 
@@ -26,6 +26,12 @@ public class ClienteServicio {
 
     public List<Cliente> listarClientes(){
         return clienteRepositorio.findAll();
+    }
+
+    public void editarCliente(Long id, Cliente cliente){
+        if(clienteRepositorio.existsById(id)){
+            clienteRepositorio.save(cliente);
+        }
     }
 
 }
