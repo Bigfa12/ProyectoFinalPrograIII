@@ -32,7 +32,6 @@ public class RutinaServicio {
 
     public Rutina buscarRutinaID(long id_rutina){
         Optional<Rutina> rutina = rutinaRepositorio.findById(id_rutina);
-
         return rutina.orElse(null);
     }
 
@@ -53,7 +52,6 @@ public class RutinaServicio {
 
     public EjercicioRutina buscarEjercicioID(long id_ejercicio){
         Optional<EjercicioRutina> ejercicio = ejercicioRutinaRepositorio.findById(id_ejercicio);
-
         return ejercicio.orElse(null);
     }
 

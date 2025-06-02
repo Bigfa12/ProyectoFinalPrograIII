@@ -14,8 +14,7 @@ public  class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_usuario;
 
-    @OneToMany
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "id")
     private List<Tarjeta> tarjetas;
 
     private String email;
