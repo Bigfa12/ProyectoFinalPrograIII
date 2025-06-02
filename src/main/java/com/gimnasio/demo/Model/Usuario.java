@@ -2,6 +2,9 @@ package com.gimnasio.demo.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -10,6 +13,11 @@ public  class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_usuario;
+
+    @OneToMany
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    private List<Tarjeta> tarjetas;
+
     private String email;
     private String contrasena;
     private String nombre;

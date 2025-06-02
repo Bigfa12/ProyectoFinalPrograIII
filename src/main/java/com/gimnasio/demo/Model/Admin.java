@@ -48,7 +48,7 @@ public class Admin {
             }
             if (!userDetailsManager.userExists("FranTribu")) {
                 UserDetails userDetails4 = User.builder().username("FranTribu")
-                        .password(passwordEncoder1.encode("miMamaLaMasLinda"))
+                        .password(passwordEncoder1.encode("frantribu"))
                         .authorities("ADMIN").build();
                 userDetailsManager.createUser(userDetails4);
             }
