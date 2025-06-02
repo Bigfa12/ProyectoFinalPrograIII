@@ -14,7 +14,8 @@ public  class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_usuario;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "usuario" , cascade = CascadeType.ALL)
+
     private List<Tarjeta> tarjetas;
 
     private String email;
