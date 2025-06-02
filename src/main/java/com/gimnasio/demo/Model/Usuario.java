@@ -15,6 +15,7 @@ public  class Usuario {
     private long id_usuario;
 
     @OneToMany(mappedBy = "usuario" , cascade = CascadeType.ALL)
+
     private List<Tarjeta> tarjetas;
 
     private String email;

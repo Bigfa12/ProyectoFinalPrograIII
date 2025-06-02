@@ -40,7 +40,9 @@ public class UsuarioServicio {
     }
 
     public void editarUsuario(Long id, Usuario usuario){
-
+        if(usuarioRepositorio.existsById(id)){
+            usuarioRepositorio.save(usuario);
+        }
     }
     
 }

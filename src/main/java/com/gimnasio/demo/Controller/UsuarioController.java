@@ -20,6 +20,11 @@ import java.util.List;
 public class UsuarioController {
     @Autowired
     private UsuarioServicio usuarioServicio;
+
+    //@GetMapping("/list")
+    //@Postmapping("/login")
+    //@Getmapping("/profile")
+
     @Autowired
     private JdbcUserDetailsManager userDetailsManager;
 
