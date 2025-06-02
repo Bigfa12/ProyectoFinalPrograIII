@@ -15,18 +15,11 @@ import java.util.Optional;
 public class ClienteController {
 
     @Autowired
-<<<<<<< HEAD
     ClienteRepositorio clienteRepositorio;
-
+    private ClienteServicio clienteServicio;
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public void listClientes() {
-        clienteRepositorio.findAll();
-=======
-    private ClienteServicio clienteServicio;
-    
-    @GetMapping
     public List<Cliente> listClientes() {
         return clienteServicio.listarClientes();
     }
@@ -39,7 +32,7 @@ public class ClienteController {
     @GetMapping("/{id}")
     public Optional<Cliente> buscarClientePorID(Long id){
         return clienteServicio.buscarClientePorID(id);
->>>>>>> 2bf7f664fc86b58398fd9e081db3b41737f68284
+
     }
 
     @DeleteMapping
@@ -49,19 +42,13 @@ public class ClienteController {
     }
 
     @PatchMapping("/{id}")
-<<<<<<< HEAD
     @PreAuthorize("hasRole('ADMIN')")
     public void editCliente(@PathVariable long id,@RequestBody Cliente cliente) {
-        if(clienteRepositorio.existsById(id)){
+        if (clienteRepositorio.existsById(id)) {
             clienteRepositorio.save(cliente);
-        }
-        else{
+        } else {
             System.out.println("Cliente no encontrado");
         }
-=======
-    public void updateCliente(@PathVariable long id,@RequestBody Cliente cliente) {
-        clienteServicio.editarCliente(id,cliente);
->>>>>>> 2bf7f664fc86b58398fd9e081db3b41737f68284
     }
 
 

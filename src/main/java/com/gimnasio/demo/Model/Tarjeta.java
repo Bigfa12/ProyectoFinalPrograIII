@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,18 +15,21 @@ import java.util.Date;
 public class Tarjeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<<<<<<< HEAD
     private long id;
-=======
-    private Long id;
->>>>>>> 2bf7f664fc86b58398fd9e081db3b41737f68284
+
     private long nroTrajeta;
     private String nombreTitular;
     private Date fechaVencimiento;
     private int cvv;
 
-<<<<<<< HEAD
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
-=======
->>>>>>> 2bf7f664fc86b58398fd9e081db3b41737f68284
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
+    private Cliente clienteTarjeta;
+
+
+
 }
