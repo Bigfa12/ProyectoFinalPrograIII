@@ -1,0 +1,86 @@
+body
+{
+    color: rgb(255, 216, 0);
+    margin: 0;
+    padding: 0;
+    background-image: url(/src/main/resources/Static/images/backgroundRegLog.png);
+    background-size: cover;
+}
+
+.form-container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    margin-top: 50px;
+    padding-bottom: 50px;
+
+}
+
+form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    width: 30%;
+    padding: 40px;
+    border-radius: 7px;
+    box-shadow: 0px 3px 10px rgb(255, 216, 0);
+    background-color: black;
+}
+
+.form-div
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 20px;
+}
+
+h2
+{
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+label
+{
+    font-size: small;
+    font-weight: bold;
+    margin-top: 15px;
+    align-self: flex-start;/*Esto alinea el label a la izquierda del form*/
+    color: rgb(156, 156, 156);
+}
+
+input
+{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 5px;
+    border-radius: 5px;
+    border:none;
+    outline: none;
+    width: 100%;
+}
+
+button
+{
+    background-color: rgb(255, 216, 0);
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover
+{
+    background-color: gold;
+    box-shadow: gold;
+    transform: scale(1.05);
+}
