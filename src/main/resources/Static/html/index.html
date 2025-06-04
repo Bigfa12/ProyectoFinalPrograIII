@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TribuGYM</title>
+    <link rel="icon" href="images/logoGym.jpg" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/src/main/resources/Static/css/style.css" rel="stylesheet">
+    <link href="/src/main/resources/Static/css/index.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#"><img src="/src/main/resources/Static/images/logoGym.jpg" alt="logo" class="logoGym"></a>
+            <ul>
+                <li><a href="#container-acercaDeNosotros">Sobre nosotros</a></li>
+                <li>
+                    <div class="linea"></div>
+                </li>
+                <li><a href="#container-plan">Planes</a></li>
+
+            </ul>
+            <ul>
+                <li><a href="/src/main/resources/Static/html/registrarse.html">Registrarse</a></li>
+                <li>
+                    <div class="linea"></div>
+                </li>
+                <li><a href="/src/main/resources/Static/html/iniciarSesion.html">Iniciar sesion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div>
+        <div id="miCarrusel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/src/main/resources/Static/images/carousel.jpg" class="d-block w-100" alt="Imagen 1" />
+                </div>
+                <div class="carousel-item">
+                    <img src="/src/main/resources/Static/images/carousel2.jpg" class="d-block w-100" alt="Imagen 2" />
+                </div>
+                <div class="carousel-item">
+                    <img src="/src/main/resources/Static/images/carousel3.jpg" class="d-block w-100" alt="Imagen 3" />
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#miCarrusel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#miCarrusel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+        </div>
+        <div id="container-acercaDeNosotros">
+            <div class="acercaDeNosotros">
+                <h2>SOBRE NOSOTROS</h2>
+                <p>Somos un gimnasio comprometido con tu bienestar físico y mental. Nuestro equipo de profesionales está
+                    enfocado en ayudarte a alcanzar tus objetivos, sin importar tu nivel de experiencia. Más que un
+                    lugar para entrenar, somos una comunidad que crece junta día a día.</p>
+            </div>
+            <div class="img-acercaDeNosotros">
+                <img src="/src/main/resources/Static/images/pexels-victorfreitas-703016.jpg" alt="">
+            </div>
+        </div>
+        <div id="container-plan">
+            <h2>ELEGÍ TU PLAN</h2>
+            <div class="planes">
+                <div class="plan-div">
+                    <h3>PLAN MENSUAL</h3>
+                    <p class="text-plan">¡Empezá hoy y entrená sin ataduras! Perfecto si querés probar y mantenerte
+                        activo.</p>
+                    <p class="price-plan">$40.000 / mes</p>
+                    <button class="btn-asociate"><a href="">Asociate</a></button>
+                </div>
+
+                <div class="plan-div">
+                    <h3>PLAN ANUAL</h3>
+                    <p class="text-plan">¡Comprometete con vos mismo! Entrená todo el año y aprovechá un precio
+                        especial.</p>
+                    <p class="price-plan">$440.000 / año</p>
+                    <button class="btn-asociate"><a href="">Asociate</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
