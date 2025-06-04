@@ -14,7 +14,6 @@ public class Authority {
     @Id
     private String username;
 
-    @Id
     @Column(length = 50)
     private String authority;
 

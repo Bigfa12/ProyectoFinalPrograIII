@@ -28,10 +28,12 @@ public class ClienteServicio {
         return clienteRepositorio.findAll();
     }
 
-    public void editarCliente(Long id, Cliente cliente){
-        if(clienteRepositorio.existsById(id)){
+    public void editarCliente(Cliente cliente){
             clienteRepositorio.save(cliente);
-        }
+    }
+
+    public boolean existeCliente(Long id){
+        return clienteRepositorio.existsById(id);
     }
 
 }
