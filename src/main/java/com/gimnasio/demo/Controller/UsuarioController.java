@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Controller;
 
+import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
 import com.gimnasio.demo.Model.Usuario;
 import com.gimnasio.demo.Service.UsuarioServicio;
 
@@ -9,14 +10,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/auth")
 public class UsuarioController {
     @Autowired
     private UsuarioServicio usuarioServicio;
@@ -33,7 +32,7 @@ public class UsuarioController {
 
 
     @PostMapping("/register")
-    public void addCliente(@RequestBody Usuario usuario) {
+    public void addCliente(@RequestBody UsuarioRegistroDTO usuario) {
         System.out.println(usuario.toString());
 
         if(!userDetailsManager.userExists(usuario.getEmail())) {

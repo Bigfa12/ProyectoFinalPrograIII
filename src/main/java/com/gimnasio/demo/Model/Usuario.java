@@ -26,7 +26,8 @@ public  class Usuario {
     private String domicilio;
     private int dni;
 
-    public Usuario(String email, String contrasena, String apellido, String nombre, int dni, String domicilio) {
+    public Usuario(String username, String email, String contrasena, String apellido, String nombre, int dni, String domicilio) {
+        this.username= username;
         this.email = email;
         this.contrasena = contrasena;
         this.apellido = apellido;
