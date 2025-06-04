@@ -18,10 +18,11 @@ public  class Usuario {
 
     private List<Tarjeta> tarjetas;
 
-    private String email;
+    private String username;
     private String contrasena;
     private String nombre;
     private String apellido;
+    private String email;
     private String domicilio;
     private int dni;
 

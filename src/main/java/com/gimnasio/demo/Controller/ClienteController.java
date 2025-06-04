@@ -15,7 +15,7 @@ import java.util.Optional;
 public class ClienteController {
 
     @Autowired
-    ClienteRepositorio clienteRepositorio;
+    private ClienteRepositorio clienteRepositorio;
     private ClienteServicio clienteServicio;
 
     @GetMapping
@@ -32,7 +32,6 @@ public class ClienteController {
     @GetMapping("/{id}")
     public Optional<Cliente> buscarClientePorID(Long id){
         return clienteServicio.buscarClientePorID(id);
-
     }
 
     @DeleteMapping

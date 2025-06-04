@@ -27,4 +27,28 @@ public class Rutina {
         this.dia = dia;
         this.ejercicios = ejercicios;
     }
+
+    public long getId_rutina() {
+        return id_rutina;
+    }
+
+    public void setId_rutina(long id_rutina) {
+        this.id_rutina = id_rutina;
+    }
+
+    public Dia getDia() {
+        return dia;
+    }
+
+    public void setDia(Dia dia) {
+        this.dia = dia;
+    }
+
+    public List<EjercicioRutina> getEjercicios() {
+        return ejercicios;
+    }
+
+    public void setEjercicios(List<EjercicioRutina> ejercicios) {
+        this.ejercicios = ejercicios;
+    }
 }
