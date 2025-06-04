@@ -1,6 +1,7 @@
 package com.gimnasio.demo.Service;
 
 import com.gimnasio.demo.Controller.UsuarioController;
+import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +22,23 @@ public class UsuarioServicio {
         return usuarioRepositorio.findById(id);
     }
 
-    public void crearUsuario(Usuario usuario)
-    {
-        usuarioRepositorio.save(usuario);
+    public Usuario convertidorDTO(UsuarioRegistroDTO usu){
+        Usuario usuu = new Usuario(usu.getUsername(), usu.getEmail(), usu.getContrasena(), usu.getApellido(), usu.getNombre(), usu.getDni(), usu.getDomicilio());
+        return usuu;
     }
 
+    public boolean crearUsuario(UsuarioRegistroDTO Dto)
+    {
+        boolean b=false;
+        Usuario usu= convertidorDTO(Dto);
+
+        if(!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDNI(usu.getDni()) && !usuarioRepositorio.existsByUsername(usu.getUsername())){
+            b=true;
+            usuarioRepositorio.save(usu);
+        }
+
+        return b;
+    }
 
     public void deleteUser(Usuario usuario){usuarioRepositorio.delete(usuario);}
 
