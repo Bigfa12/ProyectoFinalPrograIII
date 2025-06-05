@@ -1,8 +1,6 @@
 package com.gimnasio.demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,4 +15,8 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+
+    @OneToOne
+    @JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
+    private Usuario usuario;
 }
