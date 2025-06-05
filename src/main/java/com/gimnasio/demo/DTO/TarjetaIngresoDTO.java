@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TarjetaIngresoDTO {
+public class TarjetaIngresoDTO{
     @NotBlank(message = "ingrese un numero de tarjeta")
     @Size(max = 18, min = 16, message = "la cantidad de numeros no es valida")
     private long nroTrajeta;

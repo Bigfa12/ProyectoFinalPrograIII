@@ -43,6 +43,9 @@ public class UsuarioServicio {
 
     public boolean crearUsuario(UsuarioRegistroDTO Dto)
     {
+        boolean b = false;
+        Usuario usu = conversorDTO(Dto);
+
         boolean b=false;
         Usuario usu= conversorDTO(Dto);
 
@@ -54,11 +57,8 @@ public class UsuarioServicio {
         return b;
     }
 
-    public void eliminarUsuarioPorID(Long id) throws UsuarioNoEncontradoException{
-
-
     /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////
-    public void eliminarUsuarioPorID(long id){
+    public void eliminarUsuarioPorID(long id)throws UsuarioNoEncontradoException{
         if(usuarioRepositorio.existsById(id)){
             usuarioRepositorio.deleteById(id);
         }else{

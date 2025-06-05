@@ -17,30 +17,6 @@ public class RutinaController {
     @Autowired
     private RutinaServicio rutinaServicio;
 
-    @PostMapping("/insert")
-    public ResponseEntity<String> insertarRutina(@RequestBody Rutina rutina){
-        Rutina r = rutinaServicio.agregarRutina(rutina);
-        List<EjercicioRutina> ejercicios = r.getEjercicios();
-
-        for (EjercicioRutina e : ejercicios){
-            e.setRutina(r);
-            rutinaServicio.agregarEjercicio(e);
-        }
-        return ResponseEntity.ok("Rutina insertada correctamente");
-    }
-
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Rutina> obtenerRutina(Long id){
-        Rutina r = rutinaServicio.buscarRutinaID(id);
-        if (r == null){
-            return ResponseEntity.notFound().build();// 404 Not Found
-        }
-        else{
-            return ResponseEntity.ok(r);
-        }
-    }
-
     @GetMapping
     public ResponseEntity<List<Rutina>> listarRutinas(){
         List<Rutina> rutinas = rutinaServicio.listarRutinas();
