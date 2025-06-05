@@ -2,6 +2,7 @@ package com.gimnasio.demo.Service;
 
 import com.gimnasio.demo.Controller.UsuarioController;
 import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
+import com.gimnasio.demo.Exceptions.UsuarioNoEncontradoException;
 import com.gimnasio.demo.Model.Tarjeta;
 import com.gimnasio.demo.Model.User;
 import com.gimnasio.demo.Repository.TarjetaRepositorio;
@@ -30,9 +31,17 @@ public class UsuarioServicio {
     @Autowired
     private UserServicio userServicio;
 
-    public Optional<Usuario> buscarUsuarioPorID(Long id){
-        return usuarioRepositorio.findById(id);
+    public Optional<Usuario> buscarUsuarioPorID(Long id) throws UsuarioNoEncontradoException{
+        Optional<Usuario> usuario;
+        if(usuarioRepositorio.existsById(id)){
+             usuario=usuarioRepositorio.findById(id);
+        }else{
+            throw new UsuarioNoEncontradoException("ese usuario no existe");
+        }
+
+        return usuario;
     }
+
 
     public Usuario convertidorDTO(UsuarioRegistroDTO usu){
         Usuario usuu = new Usuario(usu.getEmail(), usu.getApellido(), usu.getNombre(), usu.getDni(), usu.getDomicilio());
@@ -41,6 +50,9 @@ public class UsuarioServicio {
 
     public boolean crearUsuario(UsuarioRegistroDTO dto)
     {
+        boolean b = false;
+        Usuario usu = conversorDTO(Dto);
+
         boolean b=false;
         Usuario usu= convertidorDTO(dto);
         User user = new User(dto.getUsername(),dto.getContrasena(),true,usu);
@@ -54,20 +66,25 @@ public class UsuarioServicio {
         return b;
     }
 
-    public void deleteUser(Usuario usuario){usuarioRepositorio.delete(usuario);}
-
     /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////
-    public void eliminarUsuarioPorID(Long id){
-        usuarioRepositorio.deleteById(id);
+    public void eliminarUsuarioPorID(long id)throws UsuarioNoEncontradoException{
+        if(usuarioRepositorio.existsById(id)){
+            usuarioRepositorio.deleteById(id);
+        }else{
+            throw new UsuarioNoEncontradoException("ese usuario no existe");
+        }
     }
 
     public List<Usuario> listarUsuarios(){
-        return usuarioRepositorio.findAll();
+       return usuarioRepositorio.findAll();
     }
 
-    public void editarUsuario(Long id, Usuario usuario){
+
+    public void editarUsuario(Long id, Usuario usuario) throws UsuarioNoEncontradoException{
         if(usuarioRepositorio.existsById(id)){
             usuarioRepositorio.save(usuario);
+        }else{
+            throw new UsuarioNoEncontradoException("ese usuario no existe");
         }
     }
 
@@ -80,7 +97,4 @@ public class UsuarioServicio {
 
         return Optional.of(tarjetas);
     }
-
-
-    
 }
