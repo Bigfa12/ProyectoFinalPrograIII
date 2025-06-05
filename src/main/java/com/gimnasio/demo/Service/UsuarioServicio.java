@@ -1,6 +1,9 @@
 package com.gimnasio.demo.Service;
 
 import com.gimnasio.demo.Controller.UsuarioController;
+import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
+import com.gimnasio.demo.Model.Tarjeta;
+import com.gimnasio.demo.Repository.TarjetaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +12,7 @@ import com.gimnasio.demo.Repository.UsuarioRepositorio;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,20 +21,34 @@ public class UsuarioServicio {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
+    @Autowired
+    private TarjetaRepositorio tarjetaRepositorio;
+
     public Optional<Usuario> buscarUsuarioPorID(Long id){
         return usuarioRepositorio.findById(id);
     }
 
-    public void crearUsuario(Usuario usuario)
-    {
-        usuarioRepositorio.save(usuario);
+    public Usuario convertidorDTO(UsuarioRegistroDTO usu){
+        Usuario usuu = new Usuario(usu.getUsername(), usu.getEmail(), usu.getContrasena(), usu.getApellido(), usu.getNombre(), usu.getDni(), usu.getDomicilio());
+        return usuu;
     }
 
+    public boolean crearUsuario(UsuarioRegistroDTO Dto)
+    {
+        boolean b=false;
+        Usuario usu= convertidorDTO(Dto);
+
+        if(!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !usuarioRepositorio.existsByUsername(usu.getUsername())){
+            b=true;
+            usuarioRepositorio.save(usu);
+        }
+
+        return b;
+    }
 
     public void deleteUser(Usuario usuario){usuarioRepositorio.delete(usuario);}
 
-
-
+    /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////
     public void eliminarUsuarioPorID(Long id){
         usuarioRepositorio.deleteById(id);
     }
@@ -44,5 +62,17 @@ public class UsuarioServicio {
             usuarioRepositorio.save(usuario);
         }
     }
+
+    public Optional<List<Tarjeta>> listarTarjetasDeUsuario(long id) {
+        List<Tarjeta> tarjetas = tarjetaRepositorio.findByIdUsuario(id);
+
+        if (tarjetas.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(tarjetas);
+    }
+
+
     
 }

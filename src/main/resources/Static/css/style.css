@@ -1,0 +1,66 @@
+html
+{
+    scroll-behavior: smooth;
+}
+
+body{
+    background-color:rgb(32,33,40,255);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.logoGym
+{
+    width: 120px;
+    height: auto;
+}
+
+.imgSobreNosotros
+{
+    border-radius: 5%;
+    border: rgb(255, 216, 0) solid 1px;
+}
+
+a{
+    text-decoration:none;
+    color: rgb(255, 216, 0);
+    font-weight: 600;
+    display: inline-block;
+}
+
+a:hover{
+    transform: scale(1.1);
+}
+
+ul
+{
+    list-style: none;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    gap: 5px;
+}
+
+nav
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(255, 216, 0);
+    padding: 10px;
+    background-color: black;
+}
+
+.linea{
+position: relative;
+width: 15px;
+height: 0px;
+
+border: 1px solid #FFCE09;
+transform: rotate(90deg);
+}
+
+
+
+
+

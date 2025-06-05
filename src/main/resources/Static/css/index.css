@@ -1,0 +1,116 @@
+body {}
+
+.carousel-inner img {
+  height: 700px;
+  /* Alto fijo */
+  object-fit: cover;
+  /* Recorta para llenar sin deformar */
+  width: 100%;
+  /* Que ocupe todo el ancho */
+}
+
+.planes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 30px;
+}
+
+#container-plan {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+#container-plan h2 {
+  padding-bottom: 20px;
+  color: rgb(255, 216, 0);
+  font-weight: bolder;
+  font-size: xx-large;
+}
+
+.plan-div {
+  width: 250px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 0 0 7px rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+}
+
+.price-plan {
+  padding-top: 40px;
+  font-size: x-large;
+  font-weight: 700;
+}
+
+.text-plan {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.plan-div h3 {
+  font-weight: 700;
+}
+
+.plan-div button {
+  background: rgb(255, 216, 0);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.plan-div a {
+  color: black;
+  text-decoration: none;
+}
+
+#container-acercaDeNosotros {
+  background-color: #f9f9f9;
+  padding: 60px 20px;
+  text-align: justify;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  width: 100%;
+}
+
+#container-acercaDeNosotros h2 {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+#container-acercaDeNostros p {
+  margin: 0 auto;
+  font-size: 1.3rem;
+  color: black;
+}
+
+.img-acercaDeNosotros {
+  width: 80%;
+  height: 80%;
+}
+
+.img-acercaDeNosotros img {
+  width: 90%;
+  height: 80%;
+}
+
+.acercaDeNosotros
+{
+  width: 90%;
+  padding: 30px;
+}
+
+.acercaDeNosotros p{
+  font-size: large;
+}
