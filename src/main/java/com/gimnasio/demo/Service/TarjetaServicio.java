@@ -1,6 +1,7 @@
 package com.gimnasio.demo.Service;
 
 import com.gimnasio.demo.DTO.TarjetaIngresoDTO;
+import com.gimnasio.demo.Exceptions.TarjetaNoEncontradaException;
 import com.gimnasio.demo.Model.Tarjeta;
 import com.gimnasio.demo.Repository.TarjetaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,12 @@ public class TarjetaServicio {
         return b;
     }
 
-    /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////////
-    public void eliminarTarjeta(long id){
-        tarjetaRepositorio.deleteById(id);
+    public void eliminarTarjeta(long id) throws TarjetaNoEncontradaException {
+        if(tarjetaRepositorio.existsById(id)){
+            tarjetaRepositorio.deleteById(id);
+        }else{
+            throw new TarjetaNoEncontradaException("esa tarjeta no existe");
+        }
     }
 
 

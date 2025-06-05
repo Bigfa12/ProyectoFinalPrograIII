@@ -30,6 +30,14 @@ public class RutinaServicio {
         rutinaRepositorio.deleteById(id_rutina);
     }
 
+    public void modificarRutina(long id_rutina, Rutina rutina)
+    {
+        if(rutinaRepositorio.existsById(id_rutina))
+        {
+            rutinaRepositorio.save(rutina);
+        }
+    }
+
     public Rutina buscarRutinaID(long id_rutina){
         Optional<Rutina> rutina = rutinaRepositorio.findById(id_rutina);
         return rutina.orElse(null);
