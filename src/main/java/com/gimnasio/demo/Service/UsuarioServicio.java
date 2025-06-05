@@ -36,7 +36,7 @@ public class UsuarioServicio {
         return usuario;
     }
 
-    public Usuario convertidorDTO(UsuarioRegistroDTO usu){
+    public Usuario conversorDTO(UsuarioRegistroDTO usu){
         Usuario usuu = new Usuario(usu.getUsername(), usu.getEmail(), usu.getContrasena(), usu.getApellido(), usu.getNombre(), usu.getDni(), usu.getDomicilio());
         return usuu;
     }
@@ -44,7 +44,7 @@ public class UsuarioServicio {
     public boolean crearUsuario(UsuarioRegistroDTO Dto)
     {
         boolean b=false;
-        Usuario usu= convertidorDTO(Dto);
+        Usuario usu= conversorDTO(Dto);
 
         if(!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !usuarioRepositorio.existsByUsername(usu.getUsername())){
             b=true;
