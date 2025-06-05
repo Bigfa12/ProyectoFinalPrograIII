@@ -56,6 +56,9 @@ public class UsuarioServicio {
 
     public void eliminarUsuarioPorID(Long id) throws UsuarioNoEncontradoException{
 
+
+    /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////
+    public void eliminarUsuarioPorID(long id){
         if(usuarioRepositorio.existsById(id)){
             usuarioRepositorio.deleteById(id);
         }else{
@@ -64,8 +67,9 @@ public class UsuarioServicio {
     }
 
     public List<Usuario> listarUsuarios(){
-        return usuarioRepositorio.findAll();
+       return usuarioRepositorio.findAll();
     }
+
 
     public void editarUsuario(Long id, Usuario usuario) throws UsuarioNoEncontradoException{
         if(usuarioRepositorio.existsById(id)){
