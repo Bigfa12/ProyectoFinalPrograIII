@@ -1,6 +1,7 @@
 package com.gimnasio.demo.Service;
 
 import com.gimnasio.demo.DTO.TarjetaIngresoDTO;
+import com.gimnasio.demo.Exceptions.TarjetaNoEncontradaException;
 import com.gimnasio.demo.Model.Tarjeta;
 import com.gimnasio.demo.Repository.TarjetaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ public class TarjetaServicio {
     @Autowired
     private TarjetaRepositorio tarjetaRepositorio;
 
-    public Tarjeta convertidorDTO(TarjetaIngresoDTO Dto){
+    public Tarjeta conversorDTO(TarjetaIngresoDTO Dto){
         Tarjeta tarjeta = new Tarjeta(Dto.getNroTrajeta(), Dto.getNombreTitular(), Dto.getFechaVencimiento(), Dto.getCvv());
 
         return tarjeta;
@@ -20,7 +21,7 @@ public class TarjetaServicio {
 
     public boolean ingresarTarjeta (TarjetaIngresoDTO Dto){
         boolean b = false;
-        Tarjeta tarjeta = convertidorDTO(Dto);
+        Tarjeta tarjeta = conversorDTO(Dto);
 
         if(!tarjetaRepositorio.existsByNroTrajeta(tarjeta.getNroTrajeta())){
             b=true;
@@ -30,9 +31,12 @@ public class TarjetaServicio {
         return b;
     }
 
-    /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////////
-    public void eliminarTarjeta(long id){
-        tarjetaRepositorio.deleteById(id);
+    public void eliminarTarjeta(long id) throws TarjetaNoEncontradaException {
+        if(tarjetaRepositorio.existsById(id)){
+            tarjetaRepositorio.deleteById(id);
+        }else{
+            throw new TarjetaNoEncontradaException("esa tarjeta no existe");
+        }
     }
 
 

@@ -15,7 +15,6 @@ import java.util.Optional;
 public class ClienteController {
 
     @Autowired
-    private ClienteRepositorio clienteRepositorio;
     private ClienteServicio clienteServicio;
 
     @GetMapping
@@ -43,14 +42,12 @@ public class ClienteController {
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void editCliente(@PathVariable long id,@RequestBody Cliente cliente) {
-        if (clienteRepositorio.existsById(id)) {
-            clienteRepositorio.save(cliente);
+        if (clienteServicio.existeCliente(cliente.getId_cliente())) {
+            cliente.setId_cliente(id);
+            clienteServicio.editarCliente(cliente);
         } else {
             System.out.println("Cliente no encontrado");
         }
     }
-
-
-
 
 }
