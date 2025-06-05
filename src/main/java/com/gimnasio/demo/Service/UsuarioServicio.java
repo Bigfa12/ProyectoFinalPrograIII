@@ -49,15 +49,15 @@ public class UsuarioServicio {
     public void deleteUser(Usuario usuario){usuarioRepositorio.delete(usuario);}
 
     /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////
-    public void eliminarUsuarioPorID(Long id){
+    public void eliminarUsuarioPorID(long id){
         usuarioRepositorio.deleteById(id);
     }
 
     public List<Usuario> listarUsuarios(){
-        return usuarioRepositorio.findAll();
+       return usuarioRepositorio.findAll();
     }
 
-    public void editarUsuario(Long id, Usuario usuario){
+    public void editarUsuario(long id, Usuario usuario){
         if(usuarioRepositorio.existsById(id)){
             usuarioRepositorio.save(usuario);
         }
@@ -72,7 +72,5 @@ public class UsuarioServicio {
 
         return Optional.of(tarjetas);
     }
-
-
     
 }
