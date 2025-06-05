@@ -12,7 +12,7 @@ public class TarjetaServicio {
     @Autowired
     private TarjetaRepositorio tarjetaRepositorio;
 
-    public Tarjeta convertidorDTO(TarjetaIngresoDTO Dto){
+    public Tarjeta conversorDTO(TarjetaIngresoDTO Dto){
         Tarjeta tarjeta = new Tarjeta(Dto.getNroTrajeta(), Dto.getNombreTitular(), Dto.getFechaVencimiento(), Dto.getCvv());
 
         return tarjeta;
@@ -20,7 +20,7 @@ public class TarjetaServicio {
 
     public boolean ingresarTarjeta (TarjetaIngresoDTO Dto){
         boolean b = false;
-        Tarjeta tarjeta = convertidorDTO(Dto);
+        Tarjeta tarjeta = conversorDTO(Dto);
 
         if(!tarjetaRepositorio.existsByNroTrajeta(tarjeta.getNroTrajeta())){
             b=true;

@@ -28,15 +28,15 @@ public class UsuarioServicio {
         return usuarioRepositorio.findById(id);
     }
 
-    public Usuario convertidorDTO(UsuarioRegistroDTO usu){
+    public Usuario conversorDTO(UsuarioRegistroDTO usu){
         Usuario usuu = new Usuario(usu.getUsername(), usu.getEmail(), usu.getContrasena(), usu.getApellido(), usu.getNombre(), usu.getDni(), usu.getDomicilio());
         return usuu;
     }
 
     public boolean crearUsuario(UsuarioRegistroDTO Dto)
     {
-        boolean b=false;
-        Usuario usu= convertidorDTO(Dto);
+        boolean b = false;
+        Usuario usu = conversorDTO(Dto);
 
         if(!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !usuarioRepositorio.existsByUsername(usu.getUsername())){
             b=true;
@@ -45,8 +45,6 @@ public class UsuarioServicio {
 
         return b;
     }
-
-    public void deleteUser(Usuario usuario){usuarioRepositorio.delete(usuario);}
 
     /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////
     public void eliminarUsuarioPorID(Long id){
