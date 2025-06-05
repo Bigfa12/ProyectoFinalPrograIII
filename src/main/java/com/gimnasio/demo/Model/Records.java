@@ -4,13 +4,11 @@ import com.gimnasio.demo.Enums.Ejercicio;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Record {
+public class Records {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_record;

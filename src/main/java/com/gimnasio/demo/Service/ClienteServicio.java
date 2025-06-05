@@ -41,11 +41,13 @@ public class ClienteServicio {
         return clienteRepositorio.findAll();
     }
 
+
     public void editarCliente(Long id, Cliente cliente) throws ClienteNoEncontradoException{
         if(clienteRepositorio.existsById(id)){
             clienteRepositorio.save(cliente);
         }else{
             throw new ClienteNoEncontradoException("ese cliente no existe");
         }
+  
     }
 }
