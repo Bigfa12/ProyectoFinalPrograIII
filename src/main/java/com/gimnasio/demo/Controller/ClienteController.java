@@ -44,7 +44,7 @@ public class ClienteController {
     public void editCliente(@PathVariable long id,@RequestBody Cliente cliente) {
         if (clienteServicio.existeCliente(cliente.getId_cliente())) {
             cliente.setId_cliente(id);
-            clienteServicio.editarCliente(cliente);
+            clienteServicio.editarCliente(id,cliente);
         } else {
             System.out.println("Cliente no encontrado");
         }

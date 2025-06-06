@@ -47,10 +47,13 @@ public class UsuarioController {
         usuarioServicio.editarUsuario(id, usuario);
     }
 
+    /*
     @GetMapping("/tarjeta/{id}")
     public Optional<List<Tarjeta>> listarTarjetasDeUsuario(Long id){
         return usuarioServicio.listarTarjetasDeUsuario(id);
     }
+
+     */
 
 
 }

@@ -19,12 +19,11 @@ import java.net.http.HttpClient;
 @Component
 public class Admin {
 
-        @Autowired
-        private JdbcUserDetailsManager userDetailsManager;
 
         @Autowired
         private PasswordEncoder passwordEncoder1;
 
+        /*
         @PostConstruct
         public void addAdmins() {
 
@@ -61,6 +60,8 @@ public class Admin {
             }
 
         }
+
+         */
 
     }
 

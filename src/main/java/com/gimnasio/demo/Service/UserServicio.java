@@ -1,6 +1,6 @@
 package com.gimnasio.demo.Service;
 
-import com.gimnasio.demo.Model.User;
+import com.gimnasio.demo.Model.Security.UserEntity;
 import com.gimnasio.demo.Repository.UserRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,16 +10,16 @@ public class UserServicio {
     @Autowired
     private UserRepositorio userRepositorio;
 
-    public User insertarUser(User user) {
-        return userRepositorio.save(user);
+    public UserEntity insertarUser(UserEntity userEntity) {
+        return userRepositorio.save(userEntity);
     }
 
-    public void modificarUser(User user) {
-        userRepositorio.save(user);
+    public void modificarUser(UserEntity userEntity) {
+        userRepositorio.save(userEntity);
     }
 
-    public void eliminarUser(User user) {
-        userRepositorio.delete(user);
+    public void eliminarUser(UserEntity userEntity) {
+        userRepositorio.delete(userEntity);
     }
 
     public boolean buscarUserPorUsername(String username) {

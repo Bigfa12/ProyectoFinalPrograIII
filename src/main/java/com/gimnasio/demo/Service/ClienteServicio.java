@@ -50,4 +50,8 @@ public class ClienteServicio {
         }
   
     }
+
+    public boolean existeCliente(long id){
+        return clienteRepositorio.existsById(id);
+    }
 }

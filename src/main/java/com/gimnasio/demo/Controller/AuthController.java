@@ -5,6 +5,8 @@ import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
 import com.gimnasio.demo.Model.Usuario;
 import com.gimnasio.demo.Service.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,8 +20,6 @@ public class AuthController {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    @Autowired
-    private JdbcUserDetailsManager userDetailsManager;
 
     @Autowired
     private PasswordEncoder passwordEncoder1;
@@ -30,14 +30,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public void addUsuario(@RequestBody UsuarioRegistroDTO usuario) {
-        if (!userDetailsManager.userExists(usuario.getEmail())) {
-            UserDetails userDetails = User.builder().
-                    username(usuario.getEmail()).
-                    password(passwordEncoder1.encode
-                            (usuario.getContrasena())).authorities("USER").build();
-            userDetailsManager.createUser(userDetails);
-            usuarioServicio.crearUsuario(usuario);
+    public ResponseEntity<String> registrarUsuario(@RequestBody UsuarioRegistroDTO usuario) {
+        boolean creado = usuarioServicio.crearUsuario(usuario);
+        if (creado) {
+            return ResponseEntity.ok("Usuario registrado con éxito");
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("El usuario ya existe");
         }
     }
 }

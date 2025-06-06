@@ -1,20 +1,17 @@
 package com.gimnasio.demo.Service;
 
-import com.gimnasio.demo.Controller.UsuarioController;
 import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
 import com.gimnasio.demo.Exceptions.UsuarioNoEncontradoException;
 import com.gimnasio.demo.Model.Tarjeta;
-import com.gimnasio.demo.Model.User;
+import com.gimnasio.demo.Model.Security.UserEntity;
 import com.gimnasio.demo.Repository.TarjetaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gimnasio.demo.Model.Usuario;
 import com.gimnasio.demo.Repository.UsuarioRepositorio;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,13 +20,16 @@ public class UsuarioServicio {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
-    @Autowired
-    private UsuarioServicio usuarioServicio;
 
     @Autowired
     private TarjetaRepositorio tarjetaRepositorio;
+
     @Autowired
     private UserServicio userServicio;
+
+
+    @Autowired
+    private PasswordEncoder passwordEncoder1;
 
     public Optional<Usuario> buscarUsuarioPorID(Long id) throws UsuarioNoEncontradoException{
         Optional<Usuario> usuario;
@@ -43,27 +43,29 @@ public class UsuarioServicio {
     }
 
 
-    public Usuario convertidorDTO(UsuarioRegistroDTO usu){
-        Usuario usuu = new Usuario(usu.getEmail(), usu.getApellido(), usu.getNombre(), usu.getDni(), usu.getDomicilio());
-        return usuu;
+    public Usuario convertidorDTO(UsuarioRegistroDTO usuarioDTO){
+        Usuario usuario = new Usuario(usuarioDTO.getEmail(), usuarioDTO.getApellido(), usuarioDTO.getNombre(), usuarioDTO.getDni(), usuarioDTO.getDomicilio());
+        return usuario;
     }
 
-    public boolean crearUsuario(UsuarioRegistroDTO dto)
-    {
-        boolean b = false;
-        Usuario usu = conversorDTO(Dto);
+    public boolean crearUsuario(UsuarioRegistroDTO dto) {
+        Usuario usuario = convertidorDTO(dto);
 
-        boolean b=false;
-        Usuario usu= convertidorDTO(dto);
-        User user = new User(dto.getUsername(),dto.getContrasena(),true,usu);
-        if(!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !userServicio.buscarUserPorUsername(dto.getUsername())){
-            b=true;
-            usuarioRepositorio.save(usu);
-            user.setUsuario(usu);
-            userServicio.insertarUser(user);
+        String encodedPassword = passwordEncoder1.encode(dto.getContrasena());
+
+        UserEntity userEntity= null;
+
+        boolean existeEmail = usuarioRepositorio.existsByEmail(usuario.getEmail());
+        boolean existeDni = usuarioRepositorio.existsByDni(usuario.getDni());
+        boolean existeUsername = userServicio.buscarUserPorUsername(dto.getUsername());
+
+        if (!existeEmail && !existeDni && !existeUsername) {
+            usuarioRepositorio.save(usuario);
+            userEntity.setUsuario(usuario);
+            userServicio.insertarUser(userEntity);
+            return true;
         }
-
-        return b;
+        return false;
     }
 
     /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////
@@ -88,6 +90,8 @@ public class UsuarioServicio {
         }
     }
 
+    /*
+
     public Optional<List<Tarjeta>> listarTarjetasDeUsuario(long id) {
         List<Tarjeta> tarjetas = tarjetaRepositorio.findByIdUsuario(id);
 
@@ -97,4 +101,6 @@ public class UsuarioServicio {
 
         return Optional.of(tarjetas);
     }
+
+     */
 }
