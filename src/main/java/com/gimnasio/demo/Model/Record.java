@@ -24,4 +24,5 @@ public class Record {
     @Enumerated(EnumType.STRING)
     private Ejercicio ejercicio;
 
+
 }
