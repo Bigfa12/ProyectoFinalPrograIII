@@ -8,7 +8,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Records {
+public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_record;
@@ -21,5 +21,6 @@ public class Records {
 
     @Enumerated(EnumType.STRING)
     private Ejercicio ejercicio;
+
 
 }

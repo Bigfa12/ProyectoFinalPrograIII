@@ -23,7 +23,7 @@ public class TarjetaServicio {
         boolean b = false;
         Tarjeta tarjeta = conversorDTO(Dto);
 
-        if(!tarjetaRepositorio.existsByNroTrajeta(tarjeta.getNroTrajeta())){
+        if(!tarjetaRepositorio.existsByNroTarjeta(tarjeta.getNroTarjeta())){
             b=true;
             tarjetaRepositorio.save(tarjeta);
         }

@@ -1,6 +1,5 @@
 package com.gimnasio.demo.Service;
 
-import com.gimnasio.demo.Controller.UsuarioController;
 import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
 import com.gimnasio.demo.Exceptions.UsuarioNoEncontradoException;
 import com.gimnasio.demo.Model.Tarjeta;
@@ -12,9 +11,6 @@ import org.springframework.stereotype.Service;
 import com.gimnasio.demo.Model.Usuario;
 import com.gimnasio.demo.Repository.UsuarioRepositorio;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,7 +85,7 @@ public class UsuarioServicio {
     }
 
     public Optional<List<Tarjeta>> listarTarjetasDeUsuario(long id) {
-        List<Tarjeta> tarjetas = tarjetaRepositorio.findByIdUsuario(id);
+        List<Tarjeta> tarjetas = tarjetaRepositorio.findByUsuarioId(id);
 
         if (tarjetas.isEmpty()) {
             return Optional.empty();

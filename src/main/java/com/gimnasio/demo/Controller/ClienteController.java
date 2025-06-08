@@ -42,12 +42,7 @@ public class ClienteController {
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void editCliente(@PathVariable long id,@RequestBody Cliente cliente) {
-        if (clienteServicio.existeCliente(cliente.getId_cliente())) {
             cliente.setId_cliente(id);
-            clienteServicio.editarCliente(cliente);
-        } else {
-            System.out.println("Cliente no encontrado");
+            clienteServicio.editarCliente(cliente.getId_cliente(), cliente);
         }
     }
-
-}
