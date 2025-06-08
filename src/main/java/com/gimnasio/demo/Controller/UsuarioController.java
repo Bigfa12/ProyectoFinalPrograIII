@@ -30,7 +30,6 @@ public class UsuarioController {
     @Autowired
     private PasswordEncoder passwordEncoder1;
 
-
     @PostMapping("/register")
     public void addCliente(@RequestBody UsuarioRegistroDTO usuario) {
         System.out.println(usuario.toString());
