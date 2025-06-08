@@ -50,7 +50,7 @@ public class UsuarioServicio {
         return b;
     }
 
-    public void eliminarUsuarioPorID(Long id) throws UsuarioNoEncontradoException{
+    public void eliminarUsuarioPorID(Long id) throws UsuarioNoEncontradoException{}
 
 
     /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////

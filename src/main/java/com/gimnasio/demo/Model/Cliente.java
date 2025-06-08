@@ -27,7 +27,7 @@ public class Cliente{
 
 
     @OneToMany(mappedBy = "cliente")
-    private List<Records>records;
+    private List<Record>records;
 
 
 }
