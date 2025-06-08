@@ -17,15 +17,15 @@ import java.util.List;
 public class Tarjeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    private long nroTrajeta;
+    private Long nroTarjeta;
     private String nombreTitular;
     private Date fechaVencimiento;
     private int cvv;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     private Usuario usuario;
 
     @ManyToOne

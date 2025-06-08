@@ -12,7 +12,8 @@ import java.util.List;
 public  class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_usuario;
+    @Column(name = "id_usuario")
+    private Long id;
 
     @OneToMany(mappedBy = "usuario" , cascade = CascadeType.ALL)
     private List<Tarjeta> tarjetas;
@@ -23,11 +24,12 @@ public  class Usuario {
     private String domicilio;
     private int dni;
 
-    public Usuario(String username, String apellido, String nombre, int dni, String domicilio) {
-        this.email = email;
+    public Usuario(String email,String apellido, String nombre, int dni, String domicilio) {
+       this.email = email;
         this.apellido = apellido;
         this.nombre = nombre;
         this.dni = dni;
         this.domicilio = domicilio;
     }
+
 }

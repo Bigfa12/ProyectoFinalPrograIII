@@ -114,3 +114,35 @@ body {}
 .acercaDeNosotros p{
   font-size: large;
 }
+
+#container-record
+{
+  background-color: rgb(255, 216, 0);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  gap: 60px;
+}
+
+#container-record div h3
+{
+  font-weight: bolder;
+  color: white;
+  text-align: center;
+}
+
+#container-record div
+{
+  background-color: black;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow:  0 0 7px rgba(19, 19, 19, 0.5);
+}
+
+#container-record div p
+{
+  font-weight: 500;
+  color: white;
+}
