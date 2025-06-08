@@ -1,6 +1,7 @@
 package com.gimnasio.demo.Controller;
 
 import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
+import com.gimnasio.demo.Model.Tarjeta;
 import com.gimnasio.demo.Model.Usuario;
 import com.gimnasio.demo.Service.UsuarioServicio;
 
@@ -13,6 +14,7 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -20,29 +22,34 @@ public class UsuarioController {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    //@GetMapping("/list")
-    //@Postmapping("/login")
-    //@Getmapping("/profile")
+    @GetMapping("/{id}")
+    public Optional<Usuario> buscarUsuarioPorID(Long id){
+        return usuarioServicio.buscarUsuarioPorID(id);
+    }
 
-    @Autowired
-    private JdbcUserDetailsManager userDetailsManager;
+    @PostMapping
+    public void crearUsuario(@RequestBody UsuarioRegistroDTO usuarioRegistroDTO){
+        usuarioServicio.crearUsuario(usuarioRegistroDTO);
+    }
 
-    @Autowired
-    private PasswordEncoder passwordEncoder1;
+    @DeleteMapping("/{id}")
+    public void eliminarUsuarioPorID(@PathVariable Long id){
+        usuarioServicio.eliminarUsuarioPorID(id);
+    }
 
-    @PostMapping("/register")
-    public void addCliente(@RequestBody UsuarioRegistroDTO usuario) {
-        System.out.println(usuario.toString());
+    @GetMapping
+    public List<Usuario> listarUsuarios(){
+        return usuarioServicio.listarUsuarios();
+    }
 
-        if(!userDetailsManager.userExists(usuario.getEmail())) {
-            UserDetails userDetails = User.builder().
-                    username(usuario.getEmail()).
-                    password(passwordEncoder1.encode
-                            (usuario.getContrasena())).authorities("USER").build();
-            userDetailsManager.createUser(userDetails);
-            usuarioServicio.crearUsuario(usuario);
-        }
+    @PostMapping("/{id}")
+    public void editarUsuario(@PathVariable Long id,@RequestBody Usuario usuario){
+        usuarioServicio.editarUsuario(id, usuario);
+    }
 
+    @GetMapping("/tarjeta/{id}")
+    public Optional<List<Tarjeta>> listarTarjetasDeUsuario(Long id){
+        return usuarioServicio.listarTarjetasDeUsuario(id);
     }
 
 

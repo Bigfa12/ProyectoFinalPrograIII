@@ -3,6 +3,7 @@ package com.gimnasio.demo.Service;
 import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
 import com.gimnasio.demo.Exceptions.UsuarioNoEncontradoException;
 import com.gimnasio.demo.Model.Tarjeta;
+import com.gimnasio.demo.Model.User;
 import com.gimnasio.demo.Repository.TarjetaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,12 @@ public class UsuarioServicio {
     private UsuarioRepositorio usuarioRepositorio;
 
     @Autowired
+    private UsuarioServicio usuarioServicio;
+
+    @Autowired
     private TarjetaRepositorio tarjetaRepositorio;
+    @Autowired
+    private UserServicio userServicio;
 
     public Optional<Usuario> buscarUsuarioPorID(Long id) throws UsuarioNoEncontradoException{
         Optional<Usuario> usuario;
@@ -32,29 +38,32 @@ public class UsuarioServicio {
         return usuario;
     }
 
-    public Usuario conversorDTO(UsuarioRegistroDTO usu){
-        Usuario usuu = new Usuario(usu.getUsername(), usu.getEmail(), usu.getContrasena(), usu.getApellido(), usu.getNombre(), usu.getDni(), usu.getDomicilio());
+
+    public Usuario convertidorDTO(UsuarioRegistroDTO usu){
+        Usuario usuu = new Usuario(usu.getEmail(), usu.getApellido(), usu.getNombre(), usu.getDni(), usu.getDomicilio());
         return usuu;
     }
 
-    public boolean crearUsuario(UsuarioRegistroDTO Dto)
+    public boolean crearUsuario(UsuarioRegistroDTO dto)
     {
-        boolean b=false;
-        Usuario usu= conversorDTO(Dto);
+        boolean b = false;
+        Usuario usu = conversorDTO(Dto);
 
-        if(!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !usuarioRepositorio.existsByUsername(usu.getUsername())){
+        boolean b=false;
+        Usuario usu= convertidorDTO(dto);
+        User user = new User(dto.getUsername(),dto.getContrasena(),true,usu);
+        if(!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !userServicio.buscarUserPorUsername(dto.getUsername())){
             b=true;
             usuarioRepositorio.save(usu);
+            user.setUsuario(usu);
+            userServicio.insertarUser(user);
         }
 
         return b;
     }
 
-    public void eliminarUsuarioPorID(Long id) throws UsuarioNoEncontradoException{}
-
-
     /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////
-    public void eliminarUsuarioPorID(long id){
+    public void eliminarUsuarioPorID(long id)throws UsuarioNoEncontradoException{
         if(usuarioRepositorio.existsById(id)){
             usuarioRepositorio.deleteById(id);
         }else{
