@@ -24,8 +24,9 @@ public  class Usuario {
     private String domicilio;
     private int dni;
 
-    public Usuario(String email, String apellido, String nombre, int dni, String domicilio) {
-        this.email = email;
+
+    public Usuario(String email,String apellido, String nombre, int dni, String domicilio) {
+       this.email = email;
         this.apellido = apellido;
         this.nombre = nombre;
         this.dni = dni;

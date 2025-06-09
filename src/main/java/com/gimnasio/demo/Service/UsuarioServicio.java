@@ -18,7 +18,6 @@ import java.util.Optional;
 public class UsuarioServicio {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-
     @Autowired
     private TarjetaRepositorio tarjetaRepositorio;
     @Autowired
@@ -37,6 +36,7 @@ public class UsuarioServicio {
 
 
     public Usuario conversorDTO(UsuarioRegistroDTO usu){
+
         Usuario usuu = new Usuario(usu.getEmail(), usu.getApellido(), usu.getNombre(), usu.getDni(), usu.getDomicilio());
         return usuu;
     }
@@ -55,6 +55,17 @@ public class UsuarioServicio {
         }
 
         return b;
+    }
+
+    Usuario usuario = conversorDTO(dto);
+        Usuario usuarioSaved = usuarioRepositorio.save(usuario);
+
+
+        String passENcriptada= userServicio.encriptarPassword(dto.getContrasena());
+        User user= new User(dto.getUsername(),passENcriptada,true,usuarioSaved);
+
+        userServicio.insertarUser(user);
+       return true;
     }
 
     /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////
