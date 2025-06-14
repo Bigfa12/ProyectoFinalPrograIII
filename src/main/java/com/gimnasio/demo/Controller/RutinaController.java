@@ -18,15 +18,14 @@ public class RutinaController {
     private RutinaServicio rutinaServicio;
 
     @GetMapping
-    public ResponseEntity<List<Rutina>> listarRutinas(){
-        List<Rutina> rutinas = rutinaServicio.listarRutinas();
-
-        if (rutinas.isEmpty()){
-            return ResponseEntity.notFound().build();// 404 Not Found
-        }
-        else{
-            return ResponseEntity.ok(rutinas);
-        }
+    public List<Rutina> listarRutinas(){
+        return rutinaServicio.listarRutinas();
     }
+
+
+    public List<EjercicioRutina> listarRutinasYejercicios(){
+        return rutinaServicio.listarEjercicio();
+    }
+
 
 }

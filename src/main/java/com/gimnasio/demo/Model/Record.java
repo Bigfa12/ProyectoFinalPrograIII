@@ -22,5 +22,19 @@ public class Record {
     @Enumerated(EnumType.STRING)
     private Ejercicio ejercicio;
 
+    public Record(Cliente cliente, float peso, Ejercicio ejercicio) {
+        this.cliente = cliente;
+        this.peso = peso;
+        this.ejercicio = ejercicio;
+    }
 
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id_record=" + id_record +
+                ", cliente=" + cliente.getUsuario().getNombre() +
+                ", peso=" + peso +
+                ", ejercicio=" + ejercicio +
+                '}';
+    }
 }

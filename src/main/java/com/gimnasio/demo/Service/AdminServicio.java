@@ -1,6 +1,7 @@
 package com.gimnasio.demo.Service;
 
 import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
+import com.gimnasio.demo.Model.Record;
 import com.gimnasio.demo.Model.Rutina;
 import com.gimnasio.demo.Model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class AdminServicio {
 
     @Autowired
     private RutinaServicio rutinaServicio;
+
+    @Autowired
+    private RecordServicio recordServicio;
 
     /// LISTADO Y ABM DE USUARIOS
     public List<Usuario> listarUsuarios()
@@ -58,4 +62,12 @@ public class AdminServicio {
     {
         rutinaServicio.modificarRutina(id, rutina);
     }
+
+    /// LISTADO Y ABM RECORDS
+    public void altaRecord(Record record){
+        recordServicio.altaRecord(record);
+    }
+
+
+
 }

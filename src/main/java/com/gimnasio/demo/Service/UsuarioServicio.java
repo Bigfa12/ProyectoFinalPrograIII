@@ -23,11 +23,11 @@ public class UsuarioServicio {
     @Autowired
     private UserServicio userServicio;
 
-    public Optional<Usuario> buscarUsuarioPorID(Long id) throws UsuarioNoEncontradoException{
+    public Optional<Usuario> buscarUsuarioPorID(Long id) throws UsuarioNoEncontradoException {
         Optional<Usuario> usuario;
-        if(usuarioRepositorio.existsById(id)){
-             usuario=usuarioRepositorio.findById(id);
-        }else{
+        if (usuarioRepositorio.existsById(id)) {
+            usuario = usuarioRepositorio.findById(id);
+        } else {
             throw new UsuarioNoEncontradoException("ese usuario no existe");
         }
 
@@ -35,20 +35,19 @@ public class UsuarioServicio {
     }
 
 
-    public Usuario conversorDTO(UsuarioRegistroDTO usu){
+    public Usuario conversorDTO(UsuarioRegistroDTO usu) {
 
         Usuario usuu = new Usuario(usu.getEmail(), usu.getApellido(), usu.getNombre(), usu.getDni(), usu.getDomicilio());
         return usuu;
     }
 
-    public boolean crearUsuario(UsuarioRegistroDTO dto)
-    {
+    public boolean crearUsuario(UsuarioRegistroDTO dto) {
         boolean b = false;
         Usuario usu = conversorDTO(dto);
 
-        User user = new User(dto.getUsername(),dto.getContrasena(),true,usu);
-        if(!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !userServicio.buscarUserPorUsername(dto.getUsername())){
-            b=true;
+        User user = new User(dto.getUsername(), dto.getContrasena(), true, usu);
+        if (!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !userServicio.buscarUserPorUsername(dto.getUsername())) {
+            b = true;
             usuarioRepositorio.save(usu);
             user.setUsuario(usu);
             userServicio.insertarUser(user);
@@ -57,35 +56,35 @@ public class UsuarioServicio {
         return b;
     }
 
+    /*
     Usuario usuario = conversorDTO(dto);
-        Usuario usuarioSaved = usuarioRepositorio.save(usuario);
+    Usuario usuarioSaved = usuarioRepositorio.save(usuario);
 
 
-        String passENcriptada= userServicio.encriptarPassword(dto.getContrasena());
-        User user= new User(dto.getUsername(),passENcriptada,true,usuarioSaved);
+    String passENcriptada= userServicio.encriptarPassword(dto.getContrasena());
+    User user= new User(dto.getUsername(),passENcriptada,true,usuarioSaved);
 
         userServicio.insertarUser(user);
        return true;
-    }
+}*/
 
-    /// IMPLEMENTAR EXCEPTION/////////////////////////////////////////////////////////////////////////////////////
-    public void eliminarUsuarioPorID(long id)throws UsuarioNoEncontradoException{
-        if(usuarioRepositorio.existsById(id)){
+    public void eliminarUsuarioPorID(long id) throws UsuarioNoEncontradoException {
+        if (usuarioRepositorio.existsById(id)) {
             usuarioRepositorio.deleteById(id);
-        }else{
+        } else {
             throw new UsuarioNoEncontradoException("ese usuario no existe");
         }
     }
 
-    public List<Usuario> listarUsuarios(){
-       return usuarioRepositorio.findAll();
+    public List<Usuario> listarUsuarios() {
+        return usuarioRepositorio.findAll();
     }
 
 
-    public void editarUsuario(Long id, Usuario usuario) throws UsuarioNoEncontradoException{
-        if(usuarioRepositorio.existsById(id)){
+    public void editarUsuario(Long id, Usuario usuario) throws UsuarioNoEncontradoException {
+        if (usuarioRepositorio.existsById(id)) {
             usuarioRepositorio.save(usuario);
-        }else{
+        } else {
             throw new UsuarioNoEncontradoException("ese usuario no existe");
         }
     }
