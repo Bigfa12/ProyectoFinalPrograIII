@@ -38,6 +38,7 @@ public class UsuarioController {
     }
 
     @GetMapping
+    //Solo admin hasrole admin
     public List<Usuario> listarUsuarios(){
         return usuarioServicio.listarUsuarios();
     }
@@ -48,6 +49,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/tarjeta/{id}")
+    //Solo usuario hasrole usuario
     public Optional<List<Tarjeta>> listarTarjetasDeUsuario(Long id){
         return usuarioServicio.listarTarjetasDeUsuario(id);
     }

@@ -18,8 +18,6 @@ import java.util.Optional;
 public class UsuarioServicio {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-
-
     @Autowired
     private TarjetaRepositorio tarjetaRepositorio;
     @Autowired
@@ -38,17 +36,26 @@ public class UsuarioServicio {
 
 
     public Usuario conversorDTO(UsuarioRegistroDTO usu){
-        Usuario usuu = new Usuario(usu.getEmail(),usu.getApellido(),usu.getNombre(),usu.getDni(),usu.getDomicilio());
+
+        Usuario usuu = new Usuario(usu.getEmail(), usu.getApellido(), usu.getNombre(), usu.getDni(), usu.getDomicilio());
         return usuu;
     }
 
     public boolean crearUsuario(UsuarioRegistroDTO dto)
     {
-        if(usuarioRepositorio.existsByEmail(dto.getEmail()) ||
-        usuarioRepositorio.existsByDni(dto.getDni()) ||
-        userServicio.buscarUserPorUsername(dto.getUsername())){
-            return false;
+        boolean b = false;
+        Usuario usu = conversorDTO(dto);
+
+        User user = new User(dto.getUsername(),dto.getContrasena(),true,usu);
+        if(!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !userServicio.buscarUserPorUsername(dto.getUsername())){
+            b=true;
+            usuarioRepositorio.save(usu);
+            user.setUsuario(usu);
+            userServicio.insertarUser(user);
         }
+
+        return b;
+    }
 
     Usuario usuario = conversorDTO(dto);
         Usuario usuarioSaved = usuarioRepositorio.save(usuario);
