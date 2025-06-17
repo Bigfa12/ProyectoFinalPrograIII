@@ -28,8 +28,6 @@ public class EjercicioRutina {
         this.series = series;
         this.repeticiones = repeticiones;
         this.tiempoDeDescanso = tiempoDeDescanso;
-
-
     }
 
     public long getId_ejercicio() {
@@ -83,4 +81,18 @@ public class EjercicioRutina {
     public void setIdRutina(long id){
         this.rutina.setId_rutina(id);
     }
+
+    @Override
+    public String toString() {
+        return "EjercicioRutina{" +
+                "id_ejercicio=" + id_ejercicio +
+                ", actividad='" + actividad + '\'' +
+                ", series=" + series +
+                ", repeticiones=" + repeticiones +
+                ", tiempoDeDescanso=" + tiempoDeDescanso +
+                ", rutina=" + rutina.getDia() +
+                '}';
+    }
+
+
 }

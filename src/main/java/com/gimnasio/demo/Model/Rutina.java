@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Rutina {
     @Enumerated(EnumType.STRING)
     private Dia dia;
 
-    @OneToMany(mappedBy = "id_ejercicio", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rutina", cascade = CascadeType.ALL)
     private List<EjercicioRutina> ejercicios;
 
     public Rutina(Dia dia, List<EjercicioRutina> ejercicios) {
@@ -50,5 +51,14 @@ public class Rutina {
 
     public void setEjercicios(List<EjercicioRutina> ejercicios) {
         this.ejercicios = ejercicios;
+    }
+
+    @Override
+    public String toString() {
+        return "Rutina{" +
+                "id_rutina=" + id_rutina +
+                ", dia=" + dia +
+                ", ejercicios=" + ejercicios +
+                '}';
     }
 }

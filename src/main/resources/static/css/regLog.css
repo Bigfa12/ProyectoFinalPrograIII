@@ -84,3 +84,11 @@ button:hover
     box-shadow: gold;
     transform: scale(1.05);
 }
+
+.error-msg
+{
+    color:red;
+    font-size: 0.8rem;
+    margin-top: 2px;
+    display: block;
+}

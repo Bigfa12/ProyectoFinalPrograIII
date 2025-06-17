@@ -15,6 +15,7 @@ public  class Usuario {
     @Column(name = "id_usuario")
     private Long id;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "usuario" , cascade = CascadeType.ALL)
     private List<Tarjeta> tarjetas;
 

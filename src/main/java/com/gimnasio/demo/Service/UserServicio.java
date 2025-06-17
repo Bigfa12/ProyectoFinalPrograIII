@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Service;
 
+import com.gimnasio.demo.DTO.UsuarioIniciaSesionDTO;
 import com.gimnasio.demo.Model.User;
 import com.gimnasio.demo.Repository.UserRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +33,5 @@ public class UserServicio {
     public String encriptarPassword(String password) {
         return passwordEncoder.encode(password);
     }
+
 }

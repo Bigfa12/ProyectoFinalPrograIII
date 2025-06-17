@@ -4,6 +4,7 @@ import com.gimnasio.demo.Model.EjercicioRutina;
 import com.gimnasio.demo.Model.Rutina;
 import com.gimnasio.demo.Repository.EjercicioRutinaRepositorio;
 import com.gimnasio.demo.Repository.RutinaRepositorio;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,9 @@ import java.util.Optional;
 
 @Service
 public class RutinaServicio {
-
     @Autowired
     private RutinaRepositorio rutinaRepositorio;
+
 
     @Autowired
     private EjercicioRutinaRepositorio ejercicioRutinaRepositorio;
