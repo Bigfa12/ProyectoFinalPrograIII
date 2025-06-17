@@ -60,6 +60,53 @@ border: 1px solid #FFCE09;
 transform: rotate(90deg);
 }
 
+.avatar
+{
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.imgPerfil
+{
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+
+.menu-perfil
+{
+    display: none;
+    position: absolute;
+    top: 50px;
+    width: 180px;
+    right: 0;
+    z-index: 999;
+    background-color: #111;
+    border-radius:8px;
+    padding: 5px 0;
+    border: 1px #333 solid;
+}
+
+.menu-perfil li{
+    padding: 8px 0;
+    text-align: center;
+}
+
+.menu-perfil li:hover{
+    background-color: #333;
+}
+
+.menu-perfil.mostrar
+{
+    display: block;
+}
+
+.perfil-dropdown
+{
+    position: relative;
+}
 
 
 
