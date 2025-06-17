@@ -5,8 +5,11 @@ import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
 import com.gimnasio.demo.Model.Usuario;
 import com.gimnasio.demo.Service.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +28,22 @@ public class AuthController {
     private PasswordEncoder passwordEncoder1;
 
     @PostMapping("/login")
-    public void inicioSesion(@RequestBody UsuarioIniciaSesionDTO usuario){
+    public ResponseEntity<?> inicioSesion(@RequestBody UsuarioIniciaSesionDTO usuario){
+       UserDetails userDetails;
 
+       try {
+           userDetails=userDetailsManager.loadUserByUsername(usuario.getUsername());
+       } catch (UsernameNotFoundException e) {
+           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado");
+       }
+
+       if(passwordEncoder1.matches(usuario.getContrasenia(), userDetails.getPassword()))
+       {
+           return ResponseEntity.ok("Login exitoso");
+       }else
+       {
+           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contrasenia incorrecta");
+       }
     }
 
     @PostMapping("/register")

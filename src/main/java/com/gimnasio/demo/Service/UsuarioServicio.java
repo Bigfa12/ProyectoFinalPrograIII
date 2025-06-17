@@ -1,10 +1,12 @@
 package com.gimnasio.demo.Service;
 
+import com.gimnasio.demo.DTO.UsuarioIniciaSesionDTO;
 import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
 import com.gimnasio.demo.Exceptions.UsuarioNoEncontradoException;
 import com.gimnasio.demo.Model.Tarjeta;
 import com.gimnasio.demo.Model.User;
 import com.gimnasio.demo.Repository.TarjetaRepositorio;
+import com.gimnasio.demo.Repository.UserRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,12 @@ public class UsuarioServicio {
 
     public Optional<Usuario> buscarUsuarioPorID(Long id) throws UsuarioNoEncontradoException {
         Optional<Usuario> usuario;
+
+        if(id==null)
+        {
+            throw new UsuarioNoEncontradoException("El ID del usuario no puede ser null");
+        }
+
         if (usuarioRepositorio.existsById(id)) {
             usuario = usuarioRepositorio.findById(id);
         } else {
@@ -55,6 +63,7 @@ public class UsuarioServicio {
 
         return b;
     }
+
 
     /*
     Usuario usuario = conversorDTO(dto);

@@ -12,16 +12,25 @@
 
 <body>
     <header>
-        <nav>
-            <a href="/src/main/resources/Static/html/index.html"><img src="/src/main/resources/Static/images/logoGym.jpg"
-                    alt="logo" class="logoGym"></a>
+         <nav>
+            <a href="#"><img src="/src/main/resources/Static/images/logoGym.jpg" alt="logo" class="logoGym"></a>
             <ul>
-                <li><a href="" class="listRegistrarse" target="_blank">Registrarse</a></li>
+                <li><a href="/src/main/resources/static/html/#container-acercaDeNosotros">Sobre nosotros</a></li>
                 <li>
                     <div class="linea"></div>
                 </li>
-                <li><a href="/src/main/resources/Static/html/iniciarSesion.html" class="listIniciarSesion" target="_blank">Iniciar sesion</a>
+                <li><a href="/src/main/resources/static/html/#container-record">Records</a></li>
+                <li>
+                    <div class="linea"></div>
                 </li>
+                <li><a href="/src/main/resources/static/html/#container-plan">Planes</a></li>
+            </ul>
+            <ul>
+                <li><a href="/src/main/resources/Static/html/registrarse.html" target="_blank">Registrarse</a></li>
+                <li>
+                    <div class="linea"></div>
+                </li>
+                <li><a href="/src/main/resources/Static/html/iniciarSesion.html" target="_blank">Iniciar sesion</a></li>
             </ul>
         </nav>
     </header>
@@ -31,23 +40,39 @@
             <div class="form-div">
                 <div>
                     <label for="nombre">Nombre de usuario</label>
-                    <input type="text" placeholder="john10" id="input-username" required>
+                    <input type="text" placeholder="john10" id="input-username">
+                    <span class="error-msg" id="error-username"></span>
+
                     <label for="email">Email</label>
-                    <input type="text" placeholder="johndoe@gmail.com" id="input-email" required>
+                    <input type="text" placeholder="johndoe@gmail.com" id="input-email">
+                    <span class="error-msg" id="error-email"></span>
+
                     <label for="text">Nombre</label>
-                    <input type="text" placeholder="john" id="input-nombre" required>
+                    <input type="text" placeholder="john" id="input-nombre">
+                    <span class="error-msg" id="error-nombre"></span>
+
                     <label for="email">Apellido</label>
-                    <input type="text" placeholder="doe" id="input-apellido" required>
+                    <input type="text" placeholder="doe" id="input-apellido">
+                    <span class="error-msg" id="error-apellido"></span>
+
                 </div>
                 <div>
                     <label for="DNI">DNI</label>
-                    <input type="number" placeholder="12345678" id="input-dni" required>
+                    <input type="number" placeholder="12345678" id="input-dni">
+                    <span class="error-msg" id="error-dni"></span>
+
                     <label for="DNI">Domicilio</label>
-                    <input type="text" placeholder="Gascon 314" id="input-domicilio" required>
+                    <input type="text" placeholder="Gascon 314" id="input-domicilio">
+                    <span class="error-msg" id="error-domicilio"></span>
+
                     <label for="password">Contraseña</label>
-                    <input type="password" placeholder="John10$" id="input-contrasenia" required>
+                    <input type="password" placeholder="John10$" id="input-contrasenia">
+                    <span class="error-msg" id="error-contrasenia"></span>
+
                     <label for="password">Repetir contraseña</label>
-                    <input type="password" placeholder="John10$" id="input-repContrasenia" required>
+                    <input type="password" placeholder="John10$" id="input-repContrasenia">
+                    <span class="error-msg" id="error-repContrasenia"></span>
+
                 </div>
             </div>
 
