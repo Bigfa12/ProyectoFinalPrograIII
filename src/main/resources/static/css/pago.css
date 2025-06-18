@@ -1,0 +1,105 @@
+body {
+    color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+    background-color: rgb(51, 51, 51);
+    background-size: cover;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    height: 100vh;
+}
+
+.formulario {
+    flex: 1;
+    padding: 30px;
+}
+
+.formulario h2{
+    font-weight: bold;
+}
+
+#formPago {
+    margin-top: 30px;
+}
+
+.resumen {
+    background-color: rgb(39, 39, 39);
+    width: 35%;
+    padding: 30px;
+    border-left: 1px solid gold;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.resumen h3 {
+    color: gold;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.resumen p img {
+    width: 100px;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.planResumen {
+    background-color: rgb(51, 51, 51);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgb(88, 88, 88);
+}
+
+.resumen p {
+    font-size: large;
+}
+
+.formulario form input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(100, 100, 100);
+    background-color: rgb(88, 88, 88);
+    outline: none;
+}
+
+.formulario form label
+{
+    margin-top: 10px;
+}
+
+.triple {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-confirmar {
+    background-color: gold;
+    font-weight: bold;
+}
+
+button {
+    margin-top: 20px;
+    border: none;
+    border-radius: 3px;
+    padding: 7px;
+}
+
+.precioPlan
+{
+    border-top:1px solid rgb(100, 100, 100) ;
+    padding-top: 20px;
+}
+
+.error-msg {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 2px;
+    display: block;
+}

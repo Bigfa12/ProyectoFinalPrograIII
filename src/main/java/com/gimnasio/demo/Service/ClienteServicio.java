@@ -1,9 +1,9 @@
 package com.gimnasio.demo.Service;
 
 import com.gimnasio.demo.Exceptions.ClienteNoEncontradoException;
-import com.gimnasio.demo.Exceptions.TarjetaNoEncontradaException;
 import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Repository.ClienteRepositorio;
+import com.gimnasio.demo.Repository.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -13,6 +13,9 @@ import java.util.Optional;
 public class ClienteServicio {
     @Autowired
     private ClienteRepositorio clienteRepositorio;
+
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
 
     public Optional<Cliente> buscarClientePorID(Long id) throws ClienteNoEncontradoException{
         Optional<Cliente> cliente;

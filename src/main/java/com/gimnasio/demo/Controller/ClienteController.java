@@ -2,7 +2,6 @@ package com.gimnasio.demo.Controller;
 
 import com.gimnasio.demo.Exceptions.ClienteNoEncontradoException;
 import com.gimnasio.demo.Model.Cliente;
-import com.gimnasio.demo.Repository.ClienteRepositorio;
 import com.gimnasio.demo.Service.ClienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +19,7 @@ public class ClienteController {
 
 
     @PostMapping("/insert")
-    public void crearCliente(Cliente cliente){
+    public void crearCliente(Cliente cliente) {
         clienteServicio.crearCliente(cliente);
     }
 
@@ -41,11 +40,17 @@ public class ClienteController {
         return clienteServicio.buscarClientePorID(id);
     }
 
+    @DeleteMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteCliente(long id) {
+        clienteServicio.eliminarClientePorID(id);
+    }
+
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public void editCliente(@PathVariable long id,@RequestBody Cliente cliente) {
-            cliente.setId_cliente(id);
-            clienteServicio.editarCliente(cliente.getId_cliente(), cliente);
-        }
+    public void editCliente(@PathVariable long id, @RequestBody Cliente cliente) {
+        cliente.setId_cliente(id);
+        clienteServicio.editarCliente(cliente.getId_cliente(), cliente);
     }
+}
