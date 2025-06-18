@@ -1,5 +1,7 @@
 package com.gimnasio.demo.Service;
 
+import com.gimnasio.demo.Exceptions.EjercicioNoEncontradoException;
+import com.gimnasio.demo.Exceptions.RutinaNoEncontradaException;
 import com.gimnasio.demo.Model.EjercicioRutina;
 import com.gimnasio.demo.Model.Rutina;
 import com.gimnasio.demo.Repository.EjercicioRutinaRepositorio;
@@ -27,15 +29,23 @@ public class RutinaServicio {
         return rutina;
     }
 
-    public void eliminarRutina(long id_rutina){
-        rutinaRepositorio.deleteById(id_rutina);
+    public void eliminarRutina(long id_rutina) throws RutinaNoEncontradaException
+    {
+        if(rutinaRepositorio.existsById(id_rutina)){
+            rutinaRepositorio.deleteById(id_rutina);
+        }else{
+            throw new RutinaNoEncontradaException("esa rutina no existe");
+        }
+
     }
 
-    public void modificarRutina(long id_rutina, Rutina rutina)
+    public void modificarRutina(long id_rutina, Rutina rutina) throws RutinaNoEncontradaException
     {
         if(rutinaRepositorio.existsById(id_rutina))
         {
             rutinaRepositorio.save(rutina);
+        }else{
+            throw new RutinaNoEncontradaException("esa rutina no existe");
         }
     }
 
@@ -44,9 +54,6 @@ public class RutinaServicio {
         return rutina.orElse(null);
     }
 
-    public List<Rutina> listarRutinas(){
-        return rutinaRepositorio.findAll();
-    }
 
     //EjercicioRutina
 
@@ -55,8 +62,12 @@ public class RutinaServicio {
         return ejercicio;
     }
 
-    public void eliminarEjercicio(long id_ejercicio){
-        ejercicioRutinaRepositorio.deleteById(id_ejercicio);
+    public void eliminarEjercicio(long id_ejercicio) throws EjercicioNoEncontradoException{
+        if(ejercicioRutinaRepositorio.existsById(id_ejercicio)){
+            ejercicioRutinaRepositorio.deleteById(id_ejercicio);
+        }else{
+            throw new EjercicioNoEncontradoException("ese ejercicio no existe");
+        }
     }
 
     public EjercicioRutina buscarEjercicioID(long id_ejercicio){
@@ -67,5 +78,4 @@ public class RutinaServicio {
     public List<EjercicioRutina> listarEjercicio(){
         return ejercicioRutinaRepositorio.findAll();
     }
-
 }

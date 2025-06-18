@@ -2,10 +2,12 @@ package com.gimnasio.demo.Controller;
 
 import com.gimnasio.demo.DTO.RecordDTO;
 import com.gimnasio.demo.Enums.Ejercicio;
+import com.gimnasio.demo.Exceptions.RecordNoEncontradoException;
 import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Model.Record;
 import com.gimnasio.demo.Service.RecordServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,12 +34,25 @@ public class RecordController {
 
     }
 
+    @GetMapping("/ejercicio")
     public List<Record> verRecordsPorEjercicio(Ejercicio ejercicio) {
         return recordServicio.verRecords(ejercicio);
     }
 
+    @GetMapping("/altaRecord")
+    @PreAuthorize("hasRole('ADMIN')")
     public void altaRecord(Record record){
         recordServicio.altaRecord(record);
+    }
+
+    @GetMapping("/bajaRecord")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void bajaRecord(Record record){
+        try{
+            recordServicio.bajaRecord(record);
+        }catch (RecordNoEncontradoException e){
+            System.out.println(e.getMessage());
+        }
     }
 
 

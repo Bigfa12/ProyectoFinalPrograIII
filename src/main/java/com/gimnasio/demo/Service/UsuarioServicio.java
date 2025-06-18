@@ -91,9 +91,9 @@ public class UsuarioServicio {
 
 
     public void editarUsuario(Long id, Usuario usuario) throws UsuarioNoEncontradoException {
-        if (usuarioRepositorio.existsById(id)) {
+        if (usuarioRepositorio.existsById(id)){
             usuarioRepositorio.save(usuario);
-        } else {
+        }else{
             throw new UsuarioNoEncontradoException("ese usuario no existe");
         }
     }

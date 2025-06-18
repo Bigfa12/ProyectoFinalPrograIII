@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Controller;
 
+import com.gimnasio.demo.Exceptions.ClienteNoEncontradoException;
 import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Repository.ClienteRepositorio;
 import com.gimnasio.demo.Service.ClienteServicio;
@@ -17,27 +18,29 @@ public class ClienteController {
     @Autowired
     private ClienteServicio clienteServicio;
 
-    @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public List<Cliente> listClientes() {
-        return clienteServicio.listarClientes();
-    }
 
     @PostMapping("/insert")
     public void crearCliente(Cliente cliente){
         clienteServicio.crearCliente(cliente);
     }
 
+    @DeleteMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteCliente(long id){
+        try{
+            clienteServicio.eliminarClientePorID(id);
+        }catch (ClienteNoEncontradoException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public Optional<Cliente> buscarClientePorID(Long id){
         return clienteServicio.buscarClientePorID(id);
     }
 
-    @DeleteMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public void deleteCliente(long id){
-        clienteServicio.eliminarClientePorID(id);
-    }
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
