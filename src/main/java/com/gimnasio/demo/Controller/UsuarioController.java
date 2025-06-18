@@ -1,6 +1,7 @@
 package com.gimnasio.demo.Controller;
 
 import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
+import com.gimnasio.demo.Exceptions.UsuarioNoEncontradoException;
 import com.gimnasio.demo.Model.Tarjeta;
 import com.gimnasio.demo.Model.Usuario;
 import com.gimnasio.demo.Service.UsuarioServicio;
@@ -23,8 +24,15 @@ public class UsuarioController {
     private UsuarioServicio usuarioServicio;
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public Optional<Usuario> buscarUsuarioPorID(Long id){
-        return usuarioServicio.buscarUsuarioPorID(id);
+        try{
+            return usuarioServicio.buscarUsuarioPorID(id);
+        }catch (UsuarioNoEncontradoException e){
+            System.out.println(e.getMessage());
+        }
+
+      return Optional.empty();
     }
 
     @PostMapping
@@ -33,23 +41,34 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void eliminarUsuarioPorID(@PathVariable Long id){
-        usuarioServicio.eliminarUsuarioPorID(id);
+        try{
+            usuarioServicio.eliminarUsuarioPorID(id);
+        }catch(UsuarioNoEncontradoException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @GetMapping
-    //Solo admin hasrole admin
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Usuario> listarUsuarios(){
         return usuarioServicio.listarUsuarios();
     }
 
     @PostMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void editarUsuario(@PathVariable Long id,@RequestBody Usuario usuario){
-        usuarioServicio.editarUsuario(id, usuario);
+        try{
+            usuarioServicio.editarUsuario(id, usuario);
+        }catch (UsuarioNoEncontradoException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @GetMapping("/tarjeta/{id}")
     //Solo usuario hasrole usuario
+    //esto hay que ver si dejarlo, porque no vamos a guardar nada al final creo
     public Optional<List<Tarjeta>> listarTarjetasDeUsuario(Long id){
         return usuarioServicio.listarTarjetasDeUsuario(id);
     }

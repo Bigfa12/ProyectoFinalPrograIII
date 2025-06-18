@@ -2,6 +2,7 @@ package com.gimnasio.demo.Service;
 
 import com.gimnasio.demo.DTO.RecordDTO;
 import com.gimnasio.demo.Enums.Ejercicio;
+import com.gimnasio.demo.Exceptions.RecordNoEncontradoException;
 import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Model.Record;
 import com.gimnasio.demo.Repository.RecordRepositorio;
@@ -42,6 +43,16 @@ public class RecordServicio {
 
     public void altaRecord(Record record){
         recordRepositorio.save(record);
+    }
+
+    public void bajaRecord(Record record) throws RecordNoEncontradoException {
+        if(recordRepositorio.existsById(record.getId_record())){
+            recordRepositorio.delete(record);
+        }
+        else{
+            throw new RecordNoEncontradoException("ese record no existe");
+        }
+
     }
 
 
