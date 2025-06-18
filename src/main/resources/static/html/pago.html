@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/main/resources/Static/css/style.css">
+    <link rel="stylesheet" href="/src/main/resources/Static/css/pago.css">
+
+    <script>
+        const usuario = localStorage.getItem("usuario");
+
+        if (!usuario) {
+            location.replace("iniciarSesion.html");
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="form-container">
+        <div class="formulario">
+            <h2>Método de pago</h2>
+            <form id="formPago">
+
+                <label for="nombre">Nombre en la tarjeta</label>
+                <input type="text" placeholder="Triboulard Franco" id="input-nombreCompleto">
+                <span class="error-msg" id="error-nombreCompleto"></span>
+
+                <label for="text">Numero de tarjeta</label>
+                <input type="text" placeholder="**** **** **** 1111" id="input-nroTarjeta">
+                <span class="error-msg" id="error-nroTarjeta"></span>
+
+                <div class="triple">
+                    <div>
+                        <label>MM</label>
+                        <input type="text" placeholder="12" id="input-mm">
+                        <span class="error-msg" id="error-mm"></span>
+                    </div>
+                    <div>
+                        <label>YY</label>
+                        <input type="text" placeholder="2025" id="input-yy">
+                        <span class="error-msg" id="error-yy"></span>
+                    </div>
+                    <div>
+                        <label for="text">CVV</label>
+                        <input type="text" placeholder="578" id="input-cvv">
+                        <span class="error-msg" id="error-cvv"></span>
+                    </div>
+                </div>
+
+                <label>Documento del titular</label>
+                <input type="text" placeholder="46814734" id="input-dni">
+                <span class="error-msg" id="error-dni"></span>
+
+                <button onclick="window.close()" class="btn-cancelar">Cancelar pago</button>
+                <button type="submit" class="btn-confirmar">Confirmar pago</button>
+            </form>
+        </div>
+
+        <div class="resumen">
+            <div>
+                <h3>RESUMEN DE LA ORDEN</h3>
+                <p class="planResumen"><img src="/src/main/resources/static/images/logoGym.jpg"><strong>Plan
+                    </strong><span id="planResumen"></span></p>
+            </div>
+            <p class="precioPlan"><strong>Precio: </strong><span id="precioPlan"></span></p>
+        </div>
+    </div>
+    <script src="/src/main/resources/static/js/pago.js"></script>
+</body>
+
+</html>
