@@ -92,3 +92,10 @@ button:hover
     margin-top: 2px;
     display: block;
 }
+
+.linkRegistro
+{
+    color: rgb(252, 252, 252);
+    font-size: small;
+    font-weight: 500;
+}

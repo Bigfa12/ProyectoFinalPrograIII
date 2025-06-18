@@ -26,3 +26,8 @@ document.addEventListener("DOMContentLoaded", function()
         });
     }
 })
+
+function redirigirPago(plan, precio)
+{
+    window.open(`pago.html?plan=${plan}&precio=${precio}`, '_blank')
+}
