@@ -2,11 +2,13 @@ package com.gimnasio.demo.Service;
 
 import com.gimnasio.demo.DTO.RecordDTO;
 import com.gimnasio.demo.Enums.Ejercicio;
+import com.gimnasio.demo.Exceptions.RecordNoEncontradoException;
 import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Model.Record;
 import com.gimnasio.demo.Repository.RecordRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,16 @@ public class RecordServicio {
 
     public void altaRecord(Record record){
         recordRepositorio.save(record);
+    }
+
+    public void bajaRecord(long id) throws RecordNoEncontradoException {
+        if(recordRepositorio.existsById(id)){
+            recordRepositorio.deleteById(id);
+        }
+        else{
+            throw new RecordNoEncontradoException("ese record no existe");
+        }
+
     }
 
 

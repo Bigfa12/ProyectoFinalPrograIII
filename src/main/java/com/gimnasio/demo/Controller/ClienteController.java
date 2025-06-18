@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Controller;
 
+import com.gimnasio.demo.Exceptions.ClienteNoEncontradoException;
 import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Service.ClienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +17,31 @@ public class ClienteController {
     @Autowired
     private ClienteServicio clienteServicio;
 
-    @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public List<Cliente> listClientes() {
-        return clienteServicio.listarClientes();
-    }
 
     @PostMapping("/insert")
-    public void crearCliente(Cliente cliente) {
+    public void crearCliente(@RequestBody Cliente cliente) {
         clienteServicio.crearCliente(cliente);
     }
 
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteCliente(@PathVariable long id){
+        try{
+            clienteServicio.eliminarClientePorID(id);
+        }catch (ClienteNoEncontradoException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     @GetMapping("/{id}")
-    public Optional<Cliente> buscarClientePorID(Long id) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public Optional<Cliente> buscarClientePorID(@PathVariable Long id){
         return clienteServicio.buscarClientePorID(id);
     }
 
-    @DeleteMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public void deleteCliente(long id) {
-        clienteServicio.eliminarClientePorID(id);
-    }
+
+
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")

@@ -23,11 +23,12 @@ public class EjercicioRutina {
     @JoinColumn(name = "id_rutina", referencedColumnName = "id_rutina")
     private Rutina rutina;
 
-    public EjercicioRutina(String actividad, int series, int repeticiones, float tiempoDeDescanso) {
+    public EjercicioRutina(String actividad, int series, int repeticiones, float tiempoDeDescanso, Rutina rutina) {
         this.actividad = actividad;
         this.series = series;
         this.repeticiones = repeticiones;
         this.tiempoDeDescanso = tiempoDeDescanso;
+        this.rutina = rutina;
     }
 
     public long getId_ejercicio() {

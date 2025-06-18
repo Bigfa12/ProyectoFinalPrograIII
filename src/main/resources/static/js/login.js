@@ -10,8 +10,8 @@ formulario.addEventListener("submit", function (e) {
     username:
     {
       input: username,
-      regex: /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/,
-      msg: "Email inválido",
+      regex: /^[a-zA-Z0-9_]{4,16}$/,
+      msg: "Debe tener entre 4 y 16 caracteres, solo letras, números o _",
     },
     contrasenia: {
       input: password,

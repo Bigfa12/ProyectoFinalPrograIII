@@ -3,6 +3,7 @@ package com.gimnasio.demo.Model;
 import com.gimnasio.demo.Enums.Ejercicio;
 import jakarta.persistence.*;
 import lombok.*;
+import com.gimnasio.demo.Model.Cliente;
 
 @Entity
 @Data

@@ -1,9 +1,7 @@
 package com.gimnasio.demo.Model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
@@ -13,10 +11,15 @@ import lombok.NoArgsConstructor;
 public class User {
     @Id
     private String username;
+    @ToString.Exclude
     private String password;
     private boolean enabled;
 
+    @Setter
     @OneToOne
     @JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
     private Usuario usuario;
+
+
+
 }

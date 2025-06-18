@@ -3,7 +3,9 @@ package com.gimnasio.demo.Service;
 import com.gimnasio.demo.DTO.TarjetaIngresoDTO;
 import com.gimnasio.demo.Exceptions.TarjetaNoEncontradaException;
 import com.gimnasio.demo.Model.Tarjeta;
+import com.gimnasio.demo.Model.Usuario;
 import com.gimnasio.demo.Repository.TarjetaRepositorio;
+import com.gimnasio.demo.Repository.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,23 +14,28 @@ import org.springframework.stereotype.Component;
 public class TarjetaServicio {
     @Autowired
     private TarjetaRepositorio tarjetaRepositorio;
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
 
     public Tarjeta conversorDTO(TarjetaIngresoDTO Dto){
-        Tarjeta tarjeta = new Tarjeta(Dto.getNroTrajeta(), Dto.getNombreTitular(), Dto.getFechaVencimiento(), Dto.getCvv());
-
+        Tarjeta tarjeta = new Tarjeta(Dto.getNroTrajeta(),Dto.getNombreTitular(),Dto.getFechaVencimiento(),Dto.getCvv(),Dto.getDni());
         return tarjeta;
     }
 
-    public boolean ingresarTarjeta (TarjetaIngresoDTO Dto){
-        boolean b = false;
+    public void ingresarTarjeta (TarjetaIngresoDTO Dto){
+
         Tarjeta tarjeta = conversorDTO(Dto);
 
         if(!tarjetaRepositorio.existsByNroTarjeta(tarjeta.getNroTarjeta())){
-            b=true;
             tarjetaRepositorio.save(tarjeta);
+            if(usuarioRepositorio.existsByDni(Dto.getDni())){
+                Usuario usuario = usuarioRepositorio.findUsuarioByDni(Dto.getDni());
+                tarjeta.setUsuario(usuario);
+            }
         }
 
-        return b;
+
+
     }
 
     public void eliminarTarjeta(long id) throws TarjetaNoEncontradaException {

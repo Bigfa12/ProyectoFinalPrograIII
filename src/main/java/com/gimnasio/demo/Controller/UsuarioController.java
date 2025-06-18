@@ -1,13 +1,21 @@
 package com.gimnasio.demo.Controller;
 
+import com.gimnasio.demo.DTO.TarjetaIngresoDTO;
 import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
+import com.gimnasio.demo.Exceptions.UsuarioNoEncontradoException;
 import com.gimnasio.demo.Model.Tarjeta;
 import com.gimnasio.demo.Model.Usuario;
+import com.gimnasio.demo.Model.User;
+import com.gimnasio.demo.Repository.UserRepositorio;
+import com.gimnasio.demo.Service.TarjetaServicio;
+import com.gimnasio.demo.Service.UserServicio;
 import com.gimnasio.demo.Service.UsuarioServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -21,38 +29,77 @@ import java.util.Optional;
 public class UsuarioController {
     @Autowired
     private UsuarioServicio usuarioServicio;
+    @Autowired
+    private UserServicio userServicio;
+    @Autowired
+    private UserRepositorio userRepositorio;
+    @Autowired
+    private TarjetaServicio tarjetaServicio;
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public Optional<Usuario> buscarUsuarioPorID(Long id){
-        return usuarioServicio.buscarUsuarioPorID(id);
+        try{
+            return usuarioServicio.buscarUsuarioPorID(id);
+        }catch (UsuarioNoEncontradoException e){
+            System.out.println(e.getMessage());
+        }
+
+      return Optional.empty();
     }
 
-    @PostMapping
-    public void crearUsuario(@RequestBody UsuarioRegistroDTO usuarioRegistroDTO){
-        usuarioServicio.crearUsuario(usuarioRegistroDTO);
-    }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void eliminarUsuarioPorID(@PathVariable Long id){
-        usuarioServicio.eliminarUsuarioPorID(id);
+        try{
+            usuarioServicio.eliminarUsuarioPorID(id);
+        }catch(UsuarioNoEncontradoException e){
+            System.out.println(e.getMessage());
+        }
     }
 
-    @GetMapping
-    //Solo admin hasrole admin
+
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Usuario> listarUsuarios(){
         return usuarioServicio.listarUsuarios();
     }
 
+
     @PostMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void editarUsuario(@PathVariable Long id,@RequestBody Usuario usuario){
-        usuarioServicio.editarUsuario(id, usuario);
+        try{
+            usuarioServicio.editarUsuario(id, usuario);
+        }catch (UsuarioNoEncontradoException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @GetMapping("/tarjeta/{id}")
     //Solo usuario hasrole usuario
+    //esto hay que ver si dejarlo, porque no vamos a guardar nada al final creo
     public Optional<List<Tarjeta>> listarTarjetasDeUsuario(Long id){
         return usuarioServicio.listarTarjetasDeUsuario(id);
     }
 
 
+    @GetMapping ("usuarios/miPerfil")
+    @PreAuthorize("hasAuthority('USER')")
+    public ResponseEntity<String> verMiPerfil(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user= userRepositorio.findByUsername(username);
+
+        String perfil=user.toString();
+
+        return ResponseEntity.ok(perfil);
+    }
+
+    @PostMapping("usuarios/agregarTarjeta")
+    @PreAuthorize("hasAuthority('USER')")
+    public void ingresarTarjeta(@RequestBody TarjetaIngresoDTO tarjeta){
+        tarjetaServicio.ingresarTarjeta(tarjeta);
+    }
 }

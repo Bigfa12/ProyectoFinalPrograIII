@@ -8,6 +8,11 @@ import com.gimnasio.demo.Model.User;
 import com.gimnasio.demo.Repository.TarjetaRepositorio;
 import com.gimnasio.demo.Repository.UserRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gimnasio.demo.Model.Usuario;
@@ -24,12 +29,13 @@ public class UsuarioServicio {
     private TarjetaRepositorio tarjetaRepositorio;
     @Autowired
     private UserServicio userServicio;
+    @Autowired
+    private UserRepositorio userRepositorio;
 
     public Optional<Usuario> buscarUsuarioPorID(Long id) throws UsuarioNoEncontradoException {
         Optional<Usuario> usuario;
 
-        if(id==null)
-        {
+        if (id == null) {
             throw new UsuarioNoEncontradoException("El ID del usuario no puede ser null");
         }
 
@@ -53,8 +59,8 @@ public class UsuarioServicio {
         boolean b = false;
         Usuario usu = conversorDTO(dto);
 
-        User user = new User(dto.getUsername(), dto.getContrasena(), true, usu);
-        if (!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !userServicio.buscarUserPorUsername(dto.getUsername())) {
+        User user = new User(dto.getUsername(), userServicio.encriptarPassword(dto.getContrasena()), true, usu);
+        if (!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !userServicio.getUserByName(dto.getUsername())) {
             b = true;
             usuarioRepositorio.save(usu);
             user.setUsuario(usu);
@@ -64,18 +70,6 @@ public class UsuarioServicio {
         return b;
     }
 
-
-    /*
-    Usuario usuario = conversorDTO(dto);
-    Usuario usuarioSaved = usuarioRepositorio.save(usuario);
-
-
-    String passENcriptada= userServicio.encriptarPassword(dto.getContrasena());
-    User user= new User(dto.getUsername(),passENcriptada,true,usuarioSaved);
-
-        userServicio.insertarUser(user);
-       return true;
-}*/
 
     public void eliminarUsuarioPorID(long id) throws UsuarioNoEncontradoException {
         if (usuarioRepositorio.existsById(id)) {
@@ -107,4 +101,9 @@ public class UsuarioServicio {
 
         return Optional.of(tarjetas);
     }
+
+
+
+
+
 }

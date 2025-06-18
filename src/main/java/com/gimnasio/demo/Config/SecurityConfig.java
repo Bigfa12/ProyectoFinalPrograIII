@@ -33,33 +33,20 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    /*
+
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/clientes/**").hasRole("CLIENT")
-                        .requestMatchers("/usuarios/**").hasRole("USER")
-                        .requestMatchers("/register").permitAll()
-                        .requestMatchers("/rutinas/**").permitAll()
+                        .requestMatchers("/auth/register", "/auth/login").permitAll()
+                        .requestMatchers("/admin/**", "/clients/**").hasRole("ADMIN")
+                        .requestMatchers("/usuarios/**", "/auth/miPerfil").hasRole("USER")
                         .anyRequest().authenticated()
                 )
-                .formLogin(withDefaults());
-
-        return http.build();
-    }
-     */
-
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable()) // Desactiva CSRF
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // Permite todas las rutas
-                );
+                .httpBasic();
 
         return http.build();
     }
