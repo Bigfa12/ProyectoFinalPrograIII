@@ -10,8 +10,8 @@ formulario.addEventListener("submit", function (e) {
     username:
     {
       input: username,
-      regex: /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/,
-      msg: "Email inválido",
+      regex: /^[a-zA-Z0-9_]{4,16}$/,
+      msg: "Debe tener entre 4 y 16 caracteres, solo letras, números o _",
     },
     contrasenia: {
       input: password,
@@ -50,7 +50,7 @@ formulario.addEventListener("submit", function (e) {
     .then(response=>{
       if(response.ok)
       {
-        localStorage.setItem('usuario', JSON.stringify({username:username.value}));//para guardar los datos del usuario en el navegador
+        localStorage.setItem('usuario', JSON.stringify({username:username.value}));
         alert("Inicio de sesion exitoso");
         window.location.href='index.html';
       }else

@@ -53,29 +53,23 @@ public class UsuarioServicio {
         boolean b = false;
         Usuario usu = conversorDTO(dto);
 
-        User user = new User(dto.getUsername(), dto.getContrasena(), true, usu);
         if (!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !userServicio.buscarUserPorUsername(dto.getUsername())) {
             b = true;
             usuarioRepositorio.save(usu);
-            user.setUsuario(usu);
-            userServicio.insertarUser(user);
         }
 
         return b;
     }
 
+    public Usuario crearUsuario2(UsuarioRegistroDTO dto) {
+        Usuario usu = conversorDTO(dto);
 
-    /*
-    Usuario usuario = conversorDTO(dto);
-    Usuario usuarioSaved = usuarioRepositorio.save(usuario);
+        if (!usuarioRepositorio.existsByEmail(usu.getEmail()) && !usuarioRepositorio.existsByDni(usu.getDni()) && !userServicio.buscarUserPorUsername(dto.getUsername())) {
+            usuarioRepositorio.save(usu);
+        }
 
-
-    String passENcriptada= userServicio.encriptarPassword(dto.getContrasena());
-    User user= new User(dto.getUsername(),passENcriptada,true,usuarioSaved);
-
-        userServicio.insertarUser(user);
-       return true;
-}*/
+        return usu;
+    }
 
     public void eliminarUsuarioPorID(long id) throws UsuarioNoEncontradoException {
         if (usuarioRepositorio.existsById(id)) {
