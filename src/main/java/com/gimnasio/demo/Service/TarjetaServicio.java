@@ -2,11 +2,15 @@ package com.gimnasio.demo.Service;
 
 import com.gimnasio.demo.DTO.TarjetaIngresoDTO;
 import com.gimnasio.demo.Exceptions.TarjetaNoEncontradaException;
+import com.gimnasio.demo.Exceptions.UsuarioNoEncontradoException;
 import com.gimnasio.demo.Model.Tarjeta;
+import com.gimnasio.demo.Model.User;
 import com.gimnasio.demo.Model.Usuario;
 import com.gimnasio.demo.Repository.TarjetaRepositorio;
 import com.gimnasio.demo.Repository.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,20 +26,14 @@ public class TarjetaServicio {
         return tarjeta;
     }
 
-    public void ingresarTarjeta (TarjetaIngresoDTO Dto){
+    public void ingresarTarjeta (TarjetaIngresoDTO Dto, Usuario usuario){
 
         Tarjeta tarjeta = conversorDTO(Dto);
 
         if(!tarjetaRepositorio.existsByNroTarjeta(tarjeta.getNroTarjeta())){
-            tarjetaRepositorio.save(tarjeta);
-            if(usuarioRepositorio.existsByDni(Dto.getDni())){
-                Usuario usuario = usuarioRepositorio.findUsuarioByDni(Dto.getDni());
                 tarjeta.setUsuario(usuario);
-            }
+                tarjetaRepositorio.save(tarjeta);
         }
-
-
-
     }
 
     public void eliminarTarjeta(long id) throws TarjetaNoEncontradaException {

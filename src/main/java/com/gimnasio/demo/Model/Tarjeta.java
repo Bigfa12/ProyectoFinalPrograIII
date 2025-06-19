@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +24,7 @@ public class Tarjeta {
 
     private Long nroTarjeta;
     private String nombreTitular;
-    private YearMonth fechaVencimiento;
+    private String fechaVencimiento;
     private int cvv;
     private int dniTitular;
 
@@ -30,18 +32,12 @@ public class Tarjeta {
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     private Usuario usuario;
 
-    public Tarjeta(Long nroTarjeta, String nombreTitular, YearMonth fechaVencimiento, int cvv, int dniTitular, Usuario usuario) {
+    public Tarjeta(Long nroTarjeta, String nombreTitular, String fechaVencimiento, int cvv, int dniTitular) {
         this.nroTarjeta = nroTarjeta;
         this.nombreTitular = nombreTitular;
         this.fechaVencimiento = fechaVencimiento;
         this.cvv = cvv;
         this.dniTitular = dniTitular;
-        this.usuario = usuario;
     }
 
-    public Tarjeta(@NotBlank(message = "ingrese un numero de tarjeta") @Size(max = 18, min = 16, message = "la cantidad de numeros no es valida") long nroTrajeta, @NotBlank(message = "ingrese un nombre de titular de la tarjeta") String nombreTitular, @NotBlank(message = "ingrese una fecha de vencimiento") Date fechaVencimiento, @NotBlank(message = "ingrese el codigo de seguridad de la tarjeta") int cvv) {
-    }
-
-    public Tarjeta(@NotBlank(message = "ingrese un numero de tarjeta") @Size(max = 18, min = 16, message = "la cantidad de numeros no es valida") long nroTrajeta, @NotBlank(message = "ingrese un nombre de titular de la tarjeta") String nombreTitular, @NotBlank(message = "ingrese una fecha de vencimiento") YearMonth fechaVencimiento, @NotBlank(message = "ingrese el codigo de seguridad de la tarjeta") int cvv, @NotBlank(message = "ingrese el dni del Usuario") @Size(max = 8,min=7,message = "cant invalida") int dni) {
-    }
 }

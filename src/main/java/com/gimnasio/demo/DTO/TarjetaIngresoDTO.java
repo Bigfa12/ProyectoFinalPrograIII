@@ -1,11 +1,13 @@
 package com.gimnasio.demo.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 
 @NoArgsConstructor
@@ -20,7 +22,7 @@ public class TarjetaIngresoDTO{
     private String nombreTitular;
 
     @NotBlank(message = "ingrese una fecha de vencimiento")
-    private YearMonth fechaVencimiento;
+    private String fechaVencimiento;
 
     @NotBlank(message = "ingrese el codigo de seguridad de la tarjeta")
     private int cvv;

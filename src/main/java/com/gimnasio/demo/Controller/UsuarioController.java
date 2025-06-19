@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/usuario")
 public class UsuarioController {
     @Autowired
     private UsuarioServicio usuarioServicio;
@@ -84,7 +84,6 @@ public class UsuarioController {
         return usuarioServicio.listarTarjetasDeUsuario(id);
     }
 
-
     @GetMapping ("usuarios/miPerfil")
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<String> verMiPerfil(){
@@ -100,6 +99,10 @@ public class UsuarioController {
     @PostMapping("usuarios/agregarTarjeta")
     @PreAuthorize("hasAuthority('USER')")
     public void ingresarTarjeta(@RequestBody TarjetaIngresoDTO tarjeta){
-        tarjetaServicio.ingresarTarjeta(tarjeta);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user= userRepositorio.findByUsername(username);
+
+        tarjetaServicio.ingresarTarjeta(tarjeta, user.getUsuario());
     }
 }
