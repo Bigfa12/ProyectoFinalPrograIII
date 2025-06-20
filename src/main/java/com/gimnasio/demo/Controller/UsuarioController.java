@@ -49,7 +49,6 @@ public class UsuarioController {
         }
     }
 
-
     @GetMapping("/admin/list")
     @PreAuthorize("hasRole('ADMIN')")
     public List<Usuario> listarUsuarios(){
@@ -127,8 +126,5 @@ public class UsuarioController {
 
         return ResponseEntity.ok(user);
     }
-
-
-
 
 }

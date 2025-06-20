@@ -24,5 +24,8 @@ public class Cliente{
     @OneToMany(mappedBy = "cliente")
     private List<Record>records;
 
-
+    public Cliente(boolean alDia, Usuario usuario) {
+        this.alDia = alDia;
+        this.usuario = usuario;
+    }
 }

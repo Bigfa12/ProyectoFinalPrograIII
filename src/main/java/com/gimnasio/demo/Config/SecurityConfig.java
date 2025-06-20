@@ -34,7 +34,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .cors().and().csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
@@ -45,10 +45,11 @@ public class SecurityConfig {
                                 "/webjars/**"
                         ).permitAll()
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
-                        .requestMatchers("/top10").permitAll()//esto deberia permitir ver los records a cualquiera
+                        .requestMatchers("/admin/records/top10").permitAll()//esto deberia permitir ver los records a cualquiera
+                        .requestMatchers("/usuario/**").hasAuthority("USER")
+                        .requestMatchers("/clients/crearCliente").hasAuthority("USER")
                         .requestMatchers("/admin/**", "/clients/**").hasRole("ADMIN")
                         .requestMatchers("usuario/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/usuario/**").hasAuthority("USER")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults());//estaba puesto ".httpBasic()" y tiraba error, sino funciona, cambiarlo

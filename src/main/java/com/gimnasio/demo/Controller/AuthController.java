@@ -22,16 +22,12 @@ import com.gimnasio.demo.Model.*;
 @RequestMapping("/auth")
 public class AuthController {
 
-
     @Autowired
-    JdbcTemplate jdbcTemplate;
-
+    private JdbcTemplate jdbcTemplate;
     @Autowired
     private UsuarioServicio usuarioServicio;
-
     @Autowired
     private JdbcUserDetailsManager userDetailsManager;
-
     @Autowired
     private PasswordEncoder passwordEncoder1;
     @Autowired

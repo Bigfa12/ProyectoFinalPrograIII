@@ -3,8 +3,12 @@ package com.gimnasio.demo.Service;
 import com.gimnasio.demo.Model.User;
 import com.gimnasio.demo.Repository.UserRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
 
@@ -44,4 +48,12 @@ public class UserServicio {
         return userRepositorio.findByUsuarioId(usuarioId);
     }
 
+    public User conseguirUser()
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user= userRepositorio.findByUsername(username);
+
+        return user;
+    }
 }

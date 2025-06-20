@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="/src/main/resources/Static/css/pago.css">
 
     <script>
-        const usuario = localStorage.getItem("usuario");
+        const authHeader = localStorage.getItem("authHeader");
 
-        if (!usuario) {
+        if (!authHeader) {
             location.replace("iniciarSesion.html");
         }
     </script>

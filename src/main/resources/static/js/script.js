@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function()
 {
-    fetch("http://localhost:8080/records/top10")
+    fetch("http://localhost:8080/admin/records/top10")
     .then(response=>response.json())
     .then(data=>{
         console.log("data recibida", data);

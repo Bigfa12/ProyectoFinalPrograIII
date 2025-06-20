@@ -35,30 +35,31 @@ formulario.addEventListener("submit", function (e) {
   }
 
   if (allValid) {
-    const datos = {
-      username: username.value,
-      contrasenia: password.value,
-    };
+  const datos = {
+    username: username.value,
+    contrasenia: password.value,
+  };
 
-    fetch("http://localhost:8080/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(datos),
-    })
-    .then(response=>{
-      if(response.ok)
-      {
-        localStorage.setItem('usuario', JSON.stringify({username:username.value}));//para guardar los datos del usuario en el navegador
-        alert("Inicio de sesion exitoso");
-        window.location.href='index.html';
-      }else
-      {
-        alert("Usuario o contraseña incorrectos");
-      }
-    })
+  const basicAuth = btoa(`${username.value}:${password.value}`);
+  localStorage.setItem('authHeader', basicAuth);
 
-  }
+  fetch("http://localhost:8080/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Basic " + basicAuth
+    },
+    body: JSON.stringify(datos),
+  })
+  .then(response => {
+    if (response.ok) {
+      alert("Inicio de sesión exitoso");
+      window.location.href = 'index.html';
+    } else {
+      alert("Usuario o contraseña incorrectos");
+    }
+  });
+}
+
 
 });

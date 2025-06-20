@@ -14,6 +14,7 @@ const formulario = document.getElementById("formPago");
 
 formulario.addEventListener("submit", function (e) {
     e.preventDefault();
+
     const nombreCompleto = document.getElementById("input-nombreCompleto");
     const nroTarjeta = document.getElementById("input-nroTarjeta");
     const mm = document.getElementById("input-mm");
@@ -31,8 +32,8 @@ formulario.addEventListener("submit", function (e) {
         nroTarjeta:
         {
             input: nroTarjeta,
-            regex: /^\d{4} \d{4} \d{4} \d{4}$/,
-            msg: "Debe tener 16 digitos separados",
+            regex: /^\d{16}$/,
+            msg: "Debe tener 16 digitos ",
         },
         mm:
         {
@@ -74,10 +75,35 @@ formulario.addEventListener("submit", function (e) {
         }
     }
 
-    if (allValid && usuario) {
-        alert("Pago confirmado!");
-    } else if (!usuario) {
-        window.location.href("iniciarSesion.html")
+    const authHeader = localStorage.getItem("authHeader");
+
+    if (allValid && authHeader) {
+
+        const datos = {
+            nroTarjeta: nroTarjeta.value,
+            nombreTitular: nombreCompleto.value,
+            fechaVencimiento: `${mm.value}/${yy.value}`,
+            dni: dni.value,
+        };
+
+        fetch("http://localhost:8080/clients/crearCliente", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Basic " + authHeader
+            },
+            credentials: "include",
+            body: JSON.stringify(datos)
+
+        }).then(response => {
+            if (response.ok) {
+                alert("Pago exitoso");
+                window.location.href = 'index.html'
+            } else {
+                alert("El usuario ya es cliente");
+            }
+        }
+        )
     }
 })
 

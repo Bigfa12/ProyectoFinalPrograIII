@@ -26,7 +26,7 @@ public class RecordServicio {
         int cont = 0;
 
         for (Record r : records) {
-            if (cont < 10) {
+            if (cont < 10 && r.getCliente().isAlDia()) {
                 top10.add(new RecordDTO(r.getCliente().getUsuario().getNombre(),
                         r.getCliente().getUsuario().getApellido(),
                         r.getPeso(),

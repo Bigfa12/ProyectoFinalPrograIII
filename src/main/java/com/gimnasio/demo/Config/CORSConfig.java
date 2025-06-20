@@ -14,6 +14,7 @@ public class CORSConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://127.0.0.1:5500") // URL de tu frontend (Live Server)
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Métodos permitidos
-                .allowedHeaders("*"); // Permite todos los headers
+                .allowedHeaders("*") // Permite todos los headers
+                .allowCredentials(true);
     }
 }

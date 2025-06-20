@@ -7,9 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
             navPlaceholder.innerHTML = navHtml;
 
             const navUsuario = document.getElementById("nav-usuario");
-            const usuario = localStorage.getItem("usuario");
+            const authHeader = localStorage.getItem('authHeader');
 
-            if (usuario) {
+
+            if (authHeader) {
                 navUsuario.innerHTML = `
             <li class="perfil-dropdown">
             <div class="avatar" id="perfil-btn"><img src="/src/main/resources/Static/images/imgPerfil.webp" alt="" class="imgPerfil"></div>
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             document.getElementById("cerrar-sesion").addEventListener("click", ()=>{
-                localStorage.removeItem("usuario");
+                localStorage.removeItem("authHeader");
                 location.reload();
             });
             }else

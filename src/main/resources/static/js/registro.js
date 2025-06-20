@@ -98,7 +98,7 @@ formulario.addEventListener("submit", function (e) {
             }).then(response => {
                 if (response.ok) {
                     alert("Registro exitoso");
-                    formulario.reset();
+                    window.location.href='iniciarSesion.html'
                 } else {
                     alert("Hubo un error en el registro");
                 }
