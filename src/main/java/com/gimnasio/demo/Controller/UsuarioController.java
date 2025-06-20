@@ -13,6 +13,7 @@ import com.gimnasio.demo.Service.UserServicio;
 import com.gimnasio.demo.Service.UsuarioServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -37,84 +38,97 @@ public class UsuarioController {
     @Autowired
     private TarjetaServicio tarjetaServicio;
 
-    @GetMapping("/{id}")
+    @GetMapping("/admin/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Optional<Usuario> buscarUsuarioPorID(Long id){
+    public ResponseEntity<?> buscarUsuarioPorID(@PathVariable Long id){
         try{
-            return usuarioServicio.buscarUsuarioPorID(id);
+            Optional<Usuario> usuario = usuarioServicio.buscarUsuarioPorID(id);
+            return ResponseEntity.ok(usuario);
         }catch (UsuarioNoEncontradoException e){
-            System.out.println(e.getMessage());
-        }
-
-      return Optional.empty();
-    }
-
-
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void eliminarUsuarioPorID(@PathVariable Long id){
-        try{
-            usuarioServicio.eliminarUsuarioPorID(id);
-        }catch(UsuarioNoEncontradoException e){
-            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
 
-    @GetMapping("/all")
+    @GetMapping("/admin/list")
     @PreAuthorize("hasRole('ADMIN')")
     public List<Usuario> listarUsuarios(){
         return usuarioServicio.listarUsuarios();
     }
 
-
-    @PostMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void editarUsuario(@PathVariable Long id,@RequestBody Usuario usuario){
-        try{
-            usuarioServicio.editarUsuario(id, usuario);
-        }catch (UsuarioNoEncontradoException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    @GetMapping("/tarjeta/{id}")
-    //Solo usuario hasrole usuario
-    //esto hay que ver si dejarlo, porque no vamos a guardar nada al final creo
-    public Optional<List<Tarjeta>> listarTarjetasDeUsuario(Long id){
-        return usuarioServicio.listarTarjetasDeUsuario(id);
-    }
-
-    @GetMapping ("usuarios/miPerfil")
+    @PostMapping("/tarjeta/ingresar")
     @PreAuthorize("hasAuthority('USER')")
-    public ResponseEntity<String> verMiPerfil(){
+    public ResponseEntity<?> ingresarTarjeta(@RequestBody TarjetaIngresoDTO tarjeta){
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user= userRepositorio.findByUsername(username);
 
-        String perfil=user.toString();
+        boolean existe;
 
-        return ResponseEntity.ok(perfil);
+        existe = tarjetaServicio.ingresarTarjeta(tarjeta, user.getUsuario());
+        if (existe) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("El usuario ya tiene ingresada esta tarjeta.");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.CREATED).body("Tarjeta ingresada correctamente.");
+        }
     }
 
-    @PostMapping("usuarios/agregarTarjeta")
+    @DeleteMapping("/tarjeta/eliminar/{id}")
     @PreAuthorize("hasAuthority('USER')")
-    public void ingresarTarjeta(@RequestBody TarjetaIngresoDTO tarjeta){
+    public ResponseEntity<String> eliminarTarjeta(@PathVariable Long id) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user= userRepositorio.findByUsername(username);
 
-        tarjetaServicio.ingresarTarjeta(tarjeta, user.getUsuario());
-    }
+        Usuario usuario = user.getUsuario();
+        List<Tarjeta> tarjetas = usuario.getTarjetas();
 
-    ///revisaaaaaaaaaaaaaaaaaar, nose si hay que pasarle el ID////////////////////////////////////////////////////////////
-    @DeleteMapping("usuario/eliminarTarjeta/{id}")
-    @PreAuthorize("hasAuthority('USER')")
-    public void eliminarTarjeta(Long id){
-        try{
-            tarjetaServicio.eliminarTarjeta(id);
-        }catch (TarjetaNoEncontradaException e){
-            System.out.println(e.getMessage());
+        boolean existe = false;
+        for (Tarjeta tarjeta : tarjetas) {
+            if (tarjeta.getId().equals(id)) {
+                existe = true;
+            }
+        }
+
+        if (existe){
+
+            usuario.getTarjetas().removeIf(tarjeta -> tarjeta.getId().equals(id));
+            usuarioServicio.updateUsuario(usuario);
+            return ResponseEntity.ok("Tarjeta eliminada correctamente.");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay tarjetas cargadas con ese id.");
         }
     }
+
+
+    @GetMapping("/tarjeta/misTarjetas")
+    @PreAuthorize("hasAuthority('USER')")
+    public ResponseEntity<?> listarTarjetasDeUsuario(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user= userRepositorio.findByUsername(username);
+        Usuario usuario = user.getUsuario();
+
+
+            return ResponseEntity.ok(usuario.getTarjetas());
+
+    }
+
+    @GetMapping ("/miPerfil")
+    @PreAuthorize("hasAuthority('USER')")
+    public ResponseEntity<?> verMiPerfil(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user= userRepositorio.findByUsername(username);
+
+        return ResponseEntity.ok(user);
+    }
+
+
+
+
 }

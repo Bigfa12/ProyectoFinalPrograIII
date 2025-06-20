@@ -47,7 +47,8 @@ public class SecurityConfig {
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
                         .requestMatchers("/top10").permitAll()//esto deberia permitir ver los records a cualquiera
                         .requestMatchers("/admin/**", "/clients/**").hasRole("ADMIN")
-                        .requestMatchers("/usuarios/**", "/auth/miPerfil").hasRole("USER")
+                        .requestMatchers("usuario/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/usuario/**").hasAuthority("USER")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults());//estaba puesto ".httpBasic()" y tiraba error, sino funciona, cambiarlo

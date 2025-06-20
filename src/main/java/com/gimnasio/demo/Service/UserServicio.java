@@ -40,4 +40,8 @@ public class UserServicio {
         return passwordEncoder.encode(password);
     }
 
+    public User findByUsuarioId(Long usuarioId) {
+        return userRepositorio.findByUsuarioId(usuarioId);
+    }
+
 }

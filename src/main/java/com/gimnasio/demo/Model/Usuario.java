@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,9 +15,8 @@ public  class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Long id;
-
-    @ToString.Exclude
-    @OneToMany(mappedBy = "usuario" , cascade = CascadeType.ALL)
+    
+    @OneToMany(mappedBy = "usuario" , cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tarjeta> tarjetas;
 
     private String nombre;

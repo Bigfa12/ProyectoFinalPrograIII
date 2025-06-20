@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +12,7 @@ import lombok.*;
 public class User {
     @Id
     private String username;
-    @ToString.Exclude
+    @JsonIgnore
     private String password;
     private boolean enabled;
 

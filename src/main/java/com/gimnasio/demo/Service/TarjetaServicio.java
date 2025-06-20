@@ -8,10 +8,13 @@ import com.gimnasio.demo.Model.User;
 import com.gimnasio.demo.Model.Usuario;
 import com.gimnasio.demo.Repository.TarjetaRepositorio;
 import com.gimnasio.demo.Repository.UsuarioRepositorio;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 
@@ -22,25 +25,38 @@ public class TarjetaServicio {
     private UsuarioRepositorio usuarioRepositorio;
 
     public Tarjeta conversorDTO(TarjetaIngresoDTO Dto){
-        Tarjeta tarjeta = new Tarjeta(Dto.getNroTrajeta(),Dto.getNombreTitular(),Dto.getFechaVencimiento(),Dto.getCvv(),Dto.getDni());
+        Tarjeta tarjeta = new Tarjeta(Dto.getNroTrajeta(),Dto.getNombreTitular(),Dto.getFechaVencimiento(),Dto.getDni());
         return tarjeta;
     }
 
-    public void ingresarTarjeta (TarjetaIngresoDTO Dto, Usuario usuario){
+    public boolean ingresarTarjeta (TarjetaIngresoDTO Dto, Usuario usuario){
 
         Tarjeta tarjeta = conversorDTO(Dto);
-
-        if(!tarjetaRepositorio.existsByNroTarjeta(tarjeta.getNroTarjeta())){
-                tarjeta.setUsuario(usuario);
-                tarjetaRepositorio.save(tarjeta);
+        boolean existe = false;
+        List<Tarjeta> tarjetas = usuario.getTarjetas();
+        for(Tarjeta t: tarjetas){
+            if(t.getNroTarjeta().equals(tarjeta.getNroTarjeta())){
+                existe = true;
+            }
         }
+        if (!existe){
+            tarjeta.setUsuario(usuario);
+            tarjetaRepositorio.save(tarjeta);
+        }
+
+        return existe;
     }
 
-    public void eliminarTarjeta(long id) throws TarjetaNoEncontradaException {
+    public boolean eliminarTarjeta(long id){
+        boolean existe = true;
+
         if(tarjetaRepositorio.existsById(id)){
+
             tarjetaRepositorio.deleteById(id);
         }else{
-            throw new TarjetaNoEncontradaException("esa tarjeta no existe");
+            existe =  false;
         }
+        return existe;
     }
+
 }

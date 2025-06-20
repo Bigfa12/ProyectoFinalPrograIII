@@ -71,14 +71,6 @@ public class UsuarioServicio {
     }
 
 
-    public void eliminarUsuarioPorID(long id) throws UsuarioNoEncontradoException {
-        if (usuarioRepositorio.existsById(id)) {
-            usuarioRepositorio.deleteById(id);
-        } else {
-            throw new UsuarioNoEncontradoException("ese usuario no existe");
-        }
-    }
-
     public List<Usuario> listarUsuarios() {
         return usuarioRepositorio.findAll();
     }
@@ -100,6 +92,10 @@ public class UsuarioServicio {
         }
 
         return Optional.of(tarjetas);
+    }
+
+    public void updateUsuario(Usuario u){
+        usuarioRepositorio.save(u);
     }
 
 
