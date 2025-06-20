@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+import static org.springframework.security.config.Customizer.withDefaults;
 import javax.sql.DataSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -20,8 +20,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity
 
 public class SecurityConfig {
-
-
     @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
@@ -32,9 +30,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -50,14 +45,12 @@ public class SecurityConfig {
                                 "/webjars/**"
                         ).permitAll()
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
+                        .requestMatchers("/top10").permitAll() //esto deberia permitir ver los records a cualquiera
                         .requestMatchers("/admin/**", "/clients/**").hasRole("ADMIN")
                         .requestMatchers("/usuarios/**", "/auth/miPerfil").hasRole("USER")
                         .anyRequest().authenticated()
                 )
-                .httpBasic();
-
+                .httpBasic(withDefaults());//estaba puesto ".httpBasic()" y tiraba error, sino anda ponelo de vuelta
         return http.build();
     }
-
-
 }

@@ -61,10 +61,8 @@ public class AuthController {
     @PostMapping("/register")
     public void addUsuario(@RequestBody UsuarioRegistroDTO usuario) {
         if (!userDetailsManager.userExists(usuario.getUsername())) {
-
             usuarioServicio.crearUsuario(usuario);
            jdbcTemplate.update("Insert Into authorities (username,authority) values (?,?)",usuario.getUsername(),"USER");
-
         }
     }
 }

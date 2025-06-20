@@ -2,6 +2,7 @@ package com.gimnasio.demo.Controller;
 
 import com.gimnasio.demo.DTO.TarjetaIngresoDTO;
 import com.gimnasio.demo.DTO.UsuarioRegistroDTO;
+import com.gimnasio.demo.Exceptions.TarjetaNoEncontradaException;
 import com.gimnasio.demo.Exceptions.UsuarioNoEncontradoException;
 import com.gimnasio.demo.Model.Tarjeta;
 import com.gimnasio.demo.Model.Usuario;
@@ -104,5 +105,16 @@ public class UsuarioController {
         User user= userRepositorio.findByUsername(username);
 
         tarjetaServicio.ingresarTarjeta(tarjeta, user.getUsuario());
+    }
+
+    ///revisaaaaaaaaaaaaaaaaaar, nose si hay que pasarle el ID////////////////////////////////////////////////////////////
+    @DeleteMapping("usuario/eliminarTarjeta/{id}")
+    @PreAuthorize("hasAuthority('USER')")
+    public void eliminarTarjeta(Long id){
+        try{
+            tarjetaServicio.eliminarTarjeta(id);
+        }catch (TarjetaNoEncontradaException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

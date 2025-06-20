@@ -65,9 +65,6 @@ public class RutinaController {
         return rta;
     }
 
-
-
-
     //ejercicioRutina
 
     @PostMapping("/agregar/ejercicio/{id_rutina}")

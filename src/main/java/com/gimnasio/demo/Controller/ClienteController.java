@@ -17,7 +17,6 @@ public class ClienteController {
     @Autowired
     private ClienteServicio clienteServicio;
 
-
     @PostMapping("/insert")
     public void crearCliente(@RequestBody Cliente cliente) {
         clienteServicio.crearCliente(cliente);
@@ -39,9 +38,6 @@ public class ClienteController {
     public Optional<Cliente> buscarClientePorID(@PathVariable Long id){
         return clienteServicio.buscarClientePorID(id);
     }
-
-
-
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
