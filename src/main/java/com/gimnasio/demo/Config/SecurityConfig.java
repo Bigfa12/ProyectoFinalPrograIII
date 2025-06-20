@@ -45,12 +45,12 @@ public class SecurityConfig {
                                 "/webjars/**"
                         ).permitAll()
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
-                        .requestMatchers("/top10").permitAll() //esto deberia permitir ver los records a cualquiera
+                        .requestMatchers("/top10").permitAll()//esto deberia permitir ver los records a cualquiera
                         .requestMatchers("/admin/**", "/clients/**").hasRole("ADMIN")
                         .requestMatchers("/usuarios/**", "/auth/miPerfil").hasRole("USER")
                         .anyRequest().authenticated()
                 )
-                .httpBasic(withDefaults());//estaba puesto ".httpBasic()" y tiraba error, sino anda ponelo de vuelta
+                .httpBasic(withDefaults());//estaba puesto ".httpBasic()" y tiraba error, sino funciona, cambiarlo
         return http.build();
     }
 }
