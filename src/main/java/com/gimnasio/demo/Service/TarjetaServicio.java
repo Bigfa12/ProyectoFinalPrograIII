@@ -43,6 +43,4 @@ public class TarjetaServicio {
             throw new TarjetaNoEncontradaException("esa tarjeta no existe");
         }
     }
-
-
 }

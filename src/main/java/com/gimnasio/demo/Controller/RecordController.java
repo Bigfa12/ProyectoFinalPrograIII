@@ -32,18 +32,19 @@ public class RecordController {
 
     }
 
-    @GetMapping("/ejercicio")
-    public List<Record> verRecordsPorEjercicio(@RequestBody Ejercicio ejercicio) {
+    @GetMapping("/ejercicio/{ejercicio}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<Record> verRecordsPorEjercicio(@PathVariable Ejercicio ejercicio) {
         return recordServicio.verRecords(ejercicio);
     }
 
-    @GetMapping("/altaRecord")
+    @PostMapping("/altaRecord")
     @PreAuthorize("hasRole('ADMIN')")
     public void altaRecord(@RequestBody Record record){
         recordServicio.altaRecord(record);
     }
 
-    @GetMapping("/bajaRecord/{id}")
+    @DeleteMapping("/bajaRecord/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void bajaRecord(@PathVariable long id){
         try{
@@ -52,7 +53,4 @@ public class RecordController {
             System.out.println(e.getMessage());
         }
     }
-
-
-
 }
