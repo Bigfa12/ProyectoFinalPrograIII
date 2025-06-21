@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface RecordRepositorio extends JpaRepository<Record, Long> {
     List<Record> findByEjercicioOrderByPesoDesc(Ejercicio ejercicio);
+
 }

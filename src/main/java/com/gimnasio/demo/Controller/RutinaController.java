@@ -22,16 +22,19 @@ public class RutinaController {
     @Autowired
     private RutinaServicio rutinaServicio;
 
+    @PostMapping("/agregar")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> agregarRutina(@RequestBody Rutina rutina){
+        rutinaServicio.agregarRutina(rutina);
+        return ResponseEntity.ok("Rutina agregada con exito");
+    }
+
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('CLIENT')")
     public List<EjercicioRutina> listarRutinasYejercicios(){
         return rutinaServicio.listarEjercicio();
     }
 
-    @PostMapping("/agregar")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void agregarRutina(@RequestBody Rutina rutina){
-        rutinaServicio.agregarRutina(rutina);
-    }
 
     @DeleteMapping("/eliminar/{id}")
     @PreAuthorize("hasRole('ADMIN')")

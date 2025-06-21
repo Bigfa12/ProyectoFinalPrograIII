@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gimnasio.demo.Enums.Ejercicio;
 import jakarta.persistence.*;
 import lombok.*;

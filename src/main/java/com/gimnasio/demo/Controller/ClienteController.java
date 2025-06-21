@@ -31,11 +31,6 @@ public class ClienteController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @PostMapping("/insert")
-    public void crearCliente(@RequestBody Cliente cliente) {
-        clienteServicio.crearCliente(cliente);
-    }
-
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteCliente(@PathVariable long id){
@@ -78,7 +73,7 @@ public class ClienteController {
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void editCliente(@PathVariable long id, @RequestBody Cliente cliente) {
-        cliente.setId_cliente(id);
-        clienteServicio.editarCliente(cliente.getId_cliente(), cliente);
+        cliente.setIdCliente(id);
+        clienteServicio.editarCliente(cliente.getIdCliente(), cliente);
     }
 }

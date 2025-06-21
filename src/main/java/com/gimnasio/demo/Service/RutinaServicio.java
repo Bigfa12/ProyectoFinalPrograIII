@@ -25,7 +25,27 @@ public class RutinaServicio {
     //Rutina
 
     public void agregarRutina(Rutina rutina){
-        rutinaRepositorio.save(rutina);
+        if (!rutinaRepositorio.existsByDia(rutina.getDia())){
+            rutinaRepositorio.save(rutina);
+
+            for (EjercicioRutina ejercicioRutina : rutina.getEjercicios()) {
+                ejercicioRutina.setRutina(rutina);
+                ejercicioRutinaRepositorio.save(ejercicioRutina);
+            }
+        }
+        else{
+            List<Rutina> existentes = rutinaRepositorio.findAllByDia(rutina.getDia());
+            for (Rutina existente : existentes) {
+                rutinaRepositorio.delete(existente);
+            }
+
+           
+            rutinaRepositorio.save(rutina);
+            for (EjercicioRutina ejercicioRutina : rutina.getEjercicios()) {
+                ejercicioRutina.setRutina(rutina);
+                ejercicioRutinaRepositorio.save(ejercicioRutina);
+            }
+        }
 
     }
 

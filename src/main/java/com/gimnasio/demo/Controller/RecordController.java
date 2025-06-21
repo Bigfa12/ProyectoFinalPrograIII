@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Controller;
 
+import com.gimnasio.demo.DTO.RecordAltaDTO;
 import com.gimnasio.demo.DTO.RecordDTO;
 import com.gimnasio.demo.Enums.Ejercicio;
 import com.gimnasio.demo.Exceptions.RecordNoEncontradoException;
@@ -7,6 +8,8 @@ import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Model.Record;
 import com.gimnasio.demo.Service.RecordServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,23 +37,28 @@ public class RecordController {
 
     @GetMapping("/ejercicio/{ejercicio}")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<Record> verRecordsPorEjercicio(@PathVariable Ejercicio ejercicio) {
+    public List<RecordDTO> verRecordsPorEjercicio(@PathVariable Ejercicio ejercicio) {
         return recordServicio.verRecords(ejercicio);
     }
 
     @PostMapping("/altaRecord")
     @PreAuthorize("hasRole('ADMIN')")
-    public void altaRecord(@RequestBody Record record){
-        recordServicio.altaRecord(record);
+    public ResponseEntity<?> altaRecord(@RequestBody RecordAltaDTO record){
+        boolean esRecord = recordServicio.altaRecord(record);
+        System.out.println(esRecord);
+        Record record1 = recordServicio.DTOaRecord(record);
+
+        if (esRecord){
+            return ResponseEntity.ok("Record cargado con exito.");
+        }
+        else if (record1 == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El cliente ingresado no existe.");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("El cliente ya tiene un record mayor al ingresado.");
+        }
+
     }
 
-    @DeleteMapping("/bajaRecord/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void bajaRecord(@PathVariable long id){
-        try{
-            recordServicio.bajaRecord(id);
-        }catch (RecordNoEncontradoException e){
-            System.out.println(e.getMessage());
-        }
-    }
+
 }

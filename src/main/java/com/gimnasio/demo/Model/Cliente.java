@@ -13,7 +13,9 @@ public class Cliente{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_cliente;
+    @Column(name = "id_cliente")
+    private Long idCliente;
+
 
     private boolean alDia;
 

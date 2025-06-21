@@ -21,7 +21,7 @@ public class Rutina {
     @Enumerated(EnumType.STRING)
     private Dia dia;
 
-    @OneToMany(mappedBy = "rutina", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rutina", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<EjercicioRutina> ejercicios;
 
     public Rutina(Dia dia, List<EjercicioRutina> ejercicios) {

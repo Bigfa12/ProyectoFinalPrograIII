@@ -21,8 +21,6 @@ public class ClienteServicio {
     @Autowired
     private ClienteRepositorio clienteRepositorio;
 
-    @Autowired
-    private UsuarioRepositorio usuarioRepositorio;
 
     public Optional<Cliente> buscarClientePorID(Long id) throws ClienteNoEncontradoException{
         Optional<Cliente> cliente;
