@@ -31,16 +31,6 @@ public class ClienteController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void deleteCliente(@PathVariable long id){
-        try{
-            clienteServicio.eliminarClientePorID(id);
-        }catch (ClienteNoEncontradoException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
     @PostMapping("/crearCliente")
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<?> convertirUsuarioACliente() {
@@ -66,14 +56,14 @@ public class ClienteController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Optional<Cliente> buscarClientePorID(@PathVariable Long id){
-        return clienteServicio.buscarClientePorID(id);
+    public ResponseEntity<?> buscarClientePorID(@PathVariable Long id) {
+        Optional<Cliente> clienteOptional = clienteServicio.buscarClientePorID(id);
+
+        if (clienteOptional.isPresent()) {
+            return ResponseEntity.ok(clienteOptional.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El cliente con ID " + id + " no fue encontrado.");
+        }
     }
 
-    @PatchMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void editCliente(@PathVariable long id, @RequestBody Cliente cliente) {
-        cliente.setIdCliente(id);
-        clienteServicio.editarCliente(cliente.getIdCliente(), cliente);
-    }
 }

@@ -9,6 +9,5 @@ import java.util.List;
 public interface RutinaRepositorio extends JpaRepository<Rutina, Long> {
     boolean existsByDia(Dia dia);
     Rutina findByDia(Dia dia);
-
     List<Rutina> findAllByDia(Dia dia);
 }

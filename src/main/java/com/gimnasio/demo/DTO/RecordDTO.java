@@ -15,13 +15,10 @@ public class RecordDTO {
     private float peso;
     private Ejercicio ejercicio;
 
-
     public RecordDTO(Record record) {
         this.nombre = record.getCliente().getUsuario().getNombre();
         this.apellido = record.getCliente().getUsuario().getApellido();
         this.peso = record.getPeso();
         this.ejercicio = record.getEjercicio();
     }
-
-
 }

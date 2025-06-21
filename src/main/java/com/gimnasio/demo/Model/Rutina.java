@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gimnasio.demo.Enums.Dia;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 public class Rutina {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private long id_rutina;
 
     @Enumerated(EnumType.STRING)

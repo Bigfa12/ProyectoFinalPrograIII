@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class EjercicioRutina {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private long id_ejercicio;
 
     private String actividad;
@@ -20,6 +22,7 @@ public class EjercicioRutina {
     private float tiempoDeDescanso;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_rutina", referencedColumnName = "id_rutina")
     private Rutina rutina;
 

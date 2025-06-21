@@ -16,6 +16,7 @@ public class Record {
     private long id_record;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 

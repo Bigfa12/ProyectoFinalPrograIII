@@ -1,5 +1,6 @@
 package com.gimnasio.demo.Service;
 
+import com.gimnasio.demo.Enums.Dia;
 import com.gimnasio.demo.Exceptions.EjercicioNoEncontradoException;
 import com.gimnasio.demo.Exceptions.RutinaNoEncontradaException;
 import com.gimnasio.demo.Model.EjercicioRutina;
@@ -10,8 +11,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class RutinaServicio {
@@ -69,9 +69,9 @@ public class RutinaServicio {
         }
     }
 
-    public Rutina buscarRutinaID(long id_rutina){
-        Optional<Rutina> rutina = rutinaRepositorio.findById(id_rutina);
-        return rutina.orElse(null);
+    public Rutina buscarRutinaPorDia(Dia dia){
+        Rutina rutina = rutinaRepositorio.findByDia(dia);
+        return rutina;
     }
 
 
@@ -96,7 +96,10 @@ public class RutinaServicio {
         return ejercicio.orElse(null);
     }
 
-    public List<EjercicioRutina> listarEjercicio(){
-        return ejercicioRutinaRepositorio.findAll();
+    public List<Rutina> listarRutinas(){
+        List<Rutina>rutinas=rutinaRepositorio.findAll();
+        rutinas.sort(Comparator.comparing(r->r.getDia().ordinal()));
+
+        return rutinas;
     }
 }

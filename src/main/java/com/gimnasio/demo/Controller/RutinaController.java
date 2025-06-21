@@ -1,13 +1,21 @@
 package com.gimnasio.demo.Controller;
 
+import com.gimnasio.demo.Enums.Dia;
 import com.gimnasio.demo.Exceptions.EjercicioNoEncontradoException;
 import com.gimnasio.demo.Exceptions.RutinaNoEncontradaException;
+import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Model.EjercicioRutina;
 import com.gimnasio.demo.Model.Rutina;
+import com.gimnasio.demo.Model.User;
+import com.gimnasio.demo.Service.ClienteServicio;
 import com.gimnasio.demo.Service.RutinaServicio;
+import com.gimnasio.demo.Service.UserServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +29,11 @@ public class RutinaController {
     //Rutina
     @Autowired
     private RutinaServicio rutinaServicio;
+    @Autowired
+    private UserServicio userServicio;
+    @Autowired
+    private ClienteServicio clienteServicio;
+
 
     @PostMapping("/agregar")
     @PreAuthorize("hasRole('ADMIN')")
@@ -31,41 +44,56 @@ public class RutinaController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('CLIENT')")
-    public List<EjercicioRutina> listarRutinasYejercicios(){
-        return rutinaServicio.listarEjercicio();
-    }
+    public ResponseEntity<?> listarRutinas(){
+        User user=userServicio.conseguirUser();
+
+        if(!user.getUsername().equals("Bauti") && !user.getUsername().equals("BigFa12") && !user.getUsername().equals("FranTribu") && !user.getUsername().equals("Lean") && !user.getUsername().equals("Gon"))
+        {
+            if (user == null || user.getUsuario() == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("El usuario no está autenticado o no está vinculado a un Cliente.");
+            }
+
+            Cliente cliente = clienteServicio.existeClientePorIdUsuario(user.getUsuario().getId());
 
 
-    @DeleteMapping("/eliminar/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void eliminarRutina(@PathVariable long id){
-        try{
-            rutinaServicio.eliminarRutina(id);
-        } catch (RutinaNoEncontradaException e) {
-            System.out.println(e.getMessage());
+            if(cliente.isAlDia())
+            {
+                return ResponseEntity.ok(rutinaServicio.listarRutinas());
+            }else
+            {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("El usuario no esta al dia. Se recomienda pagar");
+            }
+        }else
+        {
+            return ResponseEntity.ok(rutinaServicio.listarRutinas());
         }
-    }
-
-    @PostMapping("/modificar/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void modificarRutina(@PathVariable long id, @RequestBody Rutina rutina){
-        try{
-            rutinaServicio.modificarRutina(id, rutina);
-        }catch(RutinaNoEncontradaException e){
-            System.out.println(e.getMessage());
         }
-    }
 
-    @GetMapping("/buscar/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String buscarRutinaID(@PathVariable long id){
-        String rta ="";
-        try {
-            rta= rutinaServicio.buscarRutinaID(id).toString();
-        }catch (RutinaNoEncontradaException e) {
-            System.out.println(e.getMessage());
+
+    @GetMapping("/buscar/{dia}")
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('CLIENT')")
+    public ResponseEntity<?> buscarRutinaPorDia(@PathVariable Dia dia){
+        User user=userServicio.conseguirUser();
+
+        if(!user.getUsername().equals("Bauti") && !user.getUsername().equals("BigFa12") && !user.getUsername().equals("FranTribu") && !user.getUsername().equals("Lean") && !user.getUsername().equals("Gon"))
+        {
+            if (user == null || user.getUsuario() == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("El usuario no está autenticado o no está vinculado a un Cliente.");
+            }
+
+            Cliente cliente = clienteServicio.existeClientePorIdUsuario(user.getUsuario().getId());
+
+            if(cliente.isAlDia())
+            {
+                return ResponseEntity.ok(rutinaServicio.buscarRutinaPorDia(dia));
+            }else
+            {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("El usuario no esta al dia. Se recomienda pagar");
+            }
+        }else
+        {
+            return ResponseEntity.ok(rutinaServicio.buscarRutinaPorDia(dia));
         }
-        return rta;
     }
 
     //ejercicioRutina
@@ -92,9 +120,4 @@ public class RutinaController {
         return rutinaServicio.buscarEjercicioID(id);
     }
 
-    @GetMapping("/listar/ejercicio")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void listarRutinas(){
-        System.out.println(rutinaServicio.listarEjercicio());
-    }
 }
