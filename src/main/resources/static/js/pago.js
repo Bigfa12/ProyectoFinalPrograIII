@@ -21,6 +21,8 @@ formulario.addEventListener("submit", function (e) {
     const yy = document.getElementById("input-yy");
     const cvv = document.getElementById("input-cvv");
     const dni = document.getElementById("input-dni");
+    const plan = document.getElementById("planResumen").textContent.toLowerCase();
+
 
     const fields = {
         nombreCompleto:
@@ -84,6 +86,7 @@ formulario.addEventListener("submit", function (e) {
             nombreTitular: nombreCompleto.value,
             fechaVencimiento: `${mm.value}/${yy.value}`,
             dni: dni.value,
+            plan : plan
         };
 
         fetch("http://localhost:8080/clients/crearCliente", {

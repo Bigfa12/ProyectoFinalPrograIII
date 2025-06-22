@@ -100,7 +100,7 @@ formulario.addEventListener("submit", function (e) {
                     alert("Registro exitoso");
                     window.location.href='iniciarSesion.html'
                 } else {
-                    alert("Hubo un error en el registro");
+                    alert("El usuario ya fue registrado");
                 }
             }
             )

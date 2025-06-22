@@ -114,10 +114,5 @@ public class RutinaController {
         }
     }
 
-    @GetMapping("/buscar/ejercicio/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public EjercicioRutina buscarEjercicioPorID(@PathVariable Long id){
-        return rutinaServicio.buscarEjercicioID(id);
-    }
 
 }
