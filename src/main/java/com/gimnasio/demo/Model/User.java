@@ -21,6 +21,4 @@ public class User {
     @JoinColumn(name = "id_usuario",referencedColumnName = "id_usuario")
     private Usuario usuario;
 
-
-
 }

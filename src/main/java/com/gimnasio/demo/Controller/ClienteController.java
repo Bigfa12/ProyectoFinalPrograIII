@@ -32,25 +32,38 @@ public class ClienteController {
     private JdbcTemplate jdbcTemplate;
 
     @PostMapping("/crearCliente")
-    @PreAuthorize("hasAuthority('USER')")
-    public ResponseEntity<?> convertirUsuarioACliente() {
+    @PreAuthorize("hasAnyAuthority('USER', 'CLIENT')")
+    public ResponseEntity<?> crearClienteSiPaga() {
         try {
             User user = userServicio.conseguirUser();
             Usuario usuario = user.getUsuario();
 
             if (clienteServicio.existeClientePorUsuario(usuario)) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("El usuario ya es un cliente.");
+                Cliente cliente = clienteServicio.obtenerPorUsuario(usuario);
+
+                if (cliente.isAlDia()) {
+                    return ResponseEntity.status(HttpStatus.CONFLICT).body("Ya sos cliente y estás al día. No es necesario realizar un pago.");
+                }
+                else
+                {
+                    cliente.setAlDia(true);
+                    jdbcTemplate.update("UPDATE cliente SET al_dia=true WHERE id_cliente=?", cliente.getIdCliente());
+                    return ResponseEntity.ok("Pago exitoso");
+                }
+            }else
+            {
+                Cliente nuevoCliente = new Cliente(true, usuario);
+                clienteServicio.crearCliente(nuevoCliente);
+
+                jdbcTemplate.update("UPDATE authorities SET authority=? WHERE username=?", "CLIENT", user.getUsername());
+
+                return ResponseEntity.ok("Cliente creado exitosamente y pago registrado.");
             }
 
-            Cliente cliente = new Cliente(true, usuario);
-            clienteServicio.crearCliente(cliente);
-
-            jdbcTemplate.update("UPDATE authorities SET authority=? WHERE username=?", "CLIENT", user.getUsername());
-
-            return ResponseEntity.ok("Cliente creado exitosamente.");
 
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear el cliente: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al crear el cliente: " + e.getMessage());
         }
     }
 

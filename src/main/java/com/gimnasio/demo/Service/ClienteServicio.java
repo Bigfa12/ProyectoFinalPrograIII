@@ -61,4 +61,9 @@ public class ClienteServicio {
     {
         return clienteRepositorio.findByUsuario_Id(idUsuario);
     }
+
+    public Cliente obtenerPorUsuario(Usuario usuario) {
+        return clienteRepositorio.findByUsuario(usuario);
+    }
+
 }

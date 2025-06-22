@@ -3,8 +3,6 @@ package com.gimnasio.demo.Controller;
 import com.gimnasio.demo.DTO.RecordAltaDTO;
 import com.gimnasio.demo.DTO.RecordDTO;
 import com.gimnasio.demo.Enums.Ejercicio;
-import com.gimnasio.demo.Exceptions.RecordNoEncontradoException;
-import com.gimnasio.demo.Model.Cliente;
 import com.gimnasio.demo.Model.Record;
 import com.gimnasio.demo.Service.RecordServicio;
 import org.springframework.beans.factory.annotation.Autowired;

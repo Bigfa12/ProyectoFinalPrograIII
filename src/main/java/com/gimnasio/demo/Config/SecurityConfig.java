@@ -46,8 +46,8 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
                         .requestMatchers("/admin/records/top10").permitAll()//esto deberia permitir ver los records a cualquiera
-                        .requestMatchers("/usuario/**").hasAuthority("USER")
-                        .requestMatchers("/clients/crearCliente").hasAuthority("USER")
+                        .requestMatchers("/usuario/**").hasAnyAuthority("USER", "CLIENT")
+                        .requestMatchers("/clients/crearCliente").hasAnyAuthority("USER", "CLIENT")
                         .requestMatchers("/admin/rutina", "/admin/rutina/buscar/**").hasAnyAuthority("CLIENT", "ROLE_ADMIN")
                         .requestMatchers("/admin/**", "/clients/**").hasRole("ADMIN")
                         .requestMatchers("usuario/admin/**").hasRole("ADMIN")

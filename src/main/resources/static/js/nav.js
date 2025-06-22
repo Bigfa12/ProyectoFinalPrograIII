@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <li class="perfil-dropdown">
             <div class="avatar" id="perfil-btn"><img src="/src/main/resources/Static/images/imgPerfil.webp" alt="" class="imgPerfil"></div>
                 <ul class="menu-perfil" id="menu-perfil">
-                    <li><a href="/perfil.html">Perfil</a></li>
+                    <li><a href="/src/main/resources/Static/html/perfil.html">Perfil</a></li>
                     <li><a href="#" id="cerrar-sesion">Cerrar sesión</a></li>
                 </ul>
             </li>

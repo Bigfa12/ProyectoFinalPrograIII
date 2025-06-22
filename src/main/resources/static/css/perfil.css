@@ -1,0 +1,39 @@
+#miPerfil {
+    color: white;
+    padding: 40px;
+    max-width: 700px;
+    margin: auto;
+}
+
+#miPerfil h2 {
+    font-size: 40px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid gold;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.item-perfil {
+    padding: 20px 30px;
+    border-radius: 15px;
+    margin: 30px 0;
+    box-shadow: 0 4px 13px rgba(255, 244, 88, 0.411);
+    background: #292929;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item-perfil:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(255, 244, 88, 0.6);
+}
+
+.label {
+    font-weight: bold;
+    color: gold;
+    font-size: 11px;
+}
+
+.item-perfil span {
+    font-size: 1.1rem;
+    margin-left: 10px;
+}

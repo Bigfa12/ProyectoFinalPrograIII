@@ -56,7 +56,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/tarjeta/ingresar")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'CLIENT')")
     public ResponseEntity<?> ingresarTarjeta(@RequestBody TarjetaIngresoDTO tarjeta){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -75,7 +75,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/tarjeta/eliminar/{id}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'CLIENT')")
     public ResponseEntity<String> eliminarTarjeta(@PathVariable Long id) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -105,7 +105,7 @@ public class UsuarioController {
 
 
     @GetMapping("/tarjeta/misTarjetas")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'CLIENT')")
     public ResponseEntity<?> listarTarjetasDeUsuario(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -118,7 +118,7 @@ public class UsuarioController {
     }
 
     @GetMapping ("/miPerfil")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'CLIENT')")
     public ResponseEntity<?> verMiPerfil(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();

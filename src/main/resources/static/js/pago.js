@@ -100,7 +100,7 @@ formulario.addEventListener("submit", function (e) {
                 alert("Pago exitoso");
                 window.location.href = 'index.html'
             } else {
-                alert("El usuario ya es cliente");
+                alert("Todavia no debe pagar");
             }
         }
         )
